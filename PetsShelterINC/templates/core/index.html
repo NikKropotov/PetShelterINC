@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../../static/assets/css/style.css">
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
+    <title>PetShelter INC</title>
+    <style>
+        .search_btn {
+            background-image: url('../../static/assets/icons/main_pink_btn.svg');
+        }
+
+        .reg-btn {
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 16px;
+            text-align: right;
+            /* Calm Dark */
+            display: block;
+            padding: .5rem 1rem;
+            color: #BABCDA;
+            background: #303056;
+            border: 3px solid #303056;
+            box-sizing: border-box;
+            border-radius: 41px;
+        }
+
+        .reg-btn:focus, .reg-btn:hover {
+            transition: 0.3s ease-out;
+            text-decoration: none;
+            color: #303056;
+            border: 3px solid #303056;
+            background: none;
+        }
+
+        .enter-btn {
+            margin-left: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            display: block;
+            padding: .5rem 1rem;
+            line-height: 16px;
+            text-align: right;
+            color: #303056;
+            border: 3px solid #303056;
+            box-sizing: border-box;
+            border-radius: 41px;
+        }
+
+        .enter-btn:focus, .enter-btn:hover {
+            transition: 0.3s ease-out;
+            text-decoration: none;
+            color: #BABCDA;
+            background: #303056;
+            border: 3px solid #303056;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="logo_container">
+                <img class="logo_img" src="../../static/assets/img/skull_logo.png">
+                <a class="navbar-brand">NIK_RAYN INC</a>
+            </div>
+            <form class="d-flex">
+                <div class="nav" style="align-items: center; text-align: center">
+                    <a class="nav-link" href="/pets">Животные</a>
+                    <a class="nav-link" href="/map">Карта</a>
+                    <a class="nav-link" href="#">Объявления</a>
+                    <a class="nav-link" href="#">Помощь</a>
+                    {% if user.is_authenticated %}
+                        <p class="nav-link" style="margin-bottom: 0px">Аккаунт: {{ user.username }}</p>
+                        <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                    {% else %}
+                        <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
+                        <a class="enter-btn" href="/accounts/login/">Вход</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="main_container">
+    <div class="banner_taital">
+        <h1 class="header_text">Помогать легко</h1>
+        <h1 class="main_text">ЭТИМ </br> ХВОСТАТЫМ </br> НУЖНА ЛЮБОВЬ </br> И ЗАБОТА</h1>
+        <p class="footer_text">Более 1000 животных нуждаются в помощи. </br>
+            Так почему бы и не помочь!
+        </p>
+        <div class="main_btn">
+            <a href="/pets">
+                <button class="search_btn">Подобрать сейчас</button>
+            </a>
+            <p class="btn_after_text">Анкеты животных</p>
+        </div>
+    </div>
+    <div class="carousel_container">
+        <img src="../../static/assets/img/Pic-3.png" class="d-block" id="carousel_pic1" alt="0" width="530"
+             height="565">
+    </div>
+</div>
+</body>
+
+</html>

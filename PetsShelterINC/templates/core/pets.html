@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../../static/assets/css/pets_style.css">
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
+    <title>PetShelter INC</title>
+    <style>
+        .reg-btn {
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 16px;
+            text-align: right;
+            display: block;
+            padding: .5rem 1rem;
+            color: #BABCDA;
+            background: #303056;
+            border: 3px solid #303056;
+            box-sizing: border-box;
+            border-radius: 41px;
+        }
+
+        .reg-btn:focus, .reg-btn:hover {
+            transition: 0.3s ease-out;
+            text-decoration: none;
+            color: #303056;
+            border: 3px solid #303056;
+            background: none;
+        }
+
+        .enter-btn {
+            margin-left: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            display: block;
+            padding: .5rem 1rem;
+            line-height: 16px;
+            text-align: right;
+            color: #303056;
+            border: 3px solid #303056;
+            box-sizing: border-box;
+            border-radius: 41px;
+        }
+
+        .enter-btn:focus, .enter-btn:hover {
+            transition: 0.3s ease-out;
+            text-decoration: none;
+            color: #BABCDA;
+            background: #303056;
+            border: 3px solid #303056;
+        }
+
+        .not_auth_card {
+            position: center;
+            width: max-content;
+            height: max-content;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
+            border-radius: 35px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card_header {
+            font-style: normal;
+            font-weight: 900;
+            font-size: 24px;
+            line-height: 109%;
+            color: rgba(48, 48, 86, 0.7);
+        }
+    </style>
+</head>
+
+<body>
+<div class="header" id="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="logo_container">
+                <img class="logo_img" src="../../static/assets/img/skull_logo.png" alt="logo">
+                <a class="navbar-brand">NIK_RAYN INC</a>
+            </div>
+            <form class="d-flex">
+                <div class="nav" style="align-items: center; text-align: center">
+                    <a class="nav-link" href="/">Главная</a>
+                    <a class="nav-link" href="/map">Карта</a>
+                    <a class="nav-link" href="#">Объявления</a>
+                    <a class="nav-link" href="#">Помощь</a>
+                    {% if user.is_authenticated %}
+                        <p class="nav-link" style="margin-bottom: 0px">Аккаунт: {{ user.username }}</p>
+                        <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                        </div>
+                        </form>
+                        </div>
+                        </nav>
+                        </div>
+
+                        <div class="main_container">
+                            <div class="toggle-sidebar">
+                                <button class="menu-icon-wrapper">
+                                    <div class="menu-icon"></div>
+                                </button>
+                            </div>
+                            <div class="container_cards_filters">
+                                <div class="row">
+                                    <main class="main cards-holder">
+
+                                        {% if pets %}
+                                            {% for p in pets %}
+                                                <a class="card-link" href="#">
+                                                    <div class="card">
+                                                        <div class="card__badges">
+                                                            <div class="card__badge card__badge--class">{{ p.pet_status }}</div>
+                                                        </div>
+                                                        <div class="card__img">
+                                                            <img src="{{ MEDIA_URL }}{{ p.petImagePath.url }}"
+                                                                 alt="{{ p.pet_name }}">
+                                                        </div>
+                                                        <div class="card__content">
+                                                            <h4 class="card__title">{{ p.pet_name }}</h4>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            {% endfor %}
+                                        {% else %}
+                                            Все еще нет
+                                        {% endif %}
+                                    </main>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% else %}
+                        <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
+                        <a class="enter-btn" href="/accounts/login/">Вход</a>
+                        </div>
+                        </form>
+                        </div>
+                        </nav>
+                        </div>
+
+                        <div class="main_container"
+                             style="align-items: center; text-align: center; justify-content: center">
+                            <div class="not_auth_card">
+                                <p class="card_header" style="margin: 55px 205px 15px 205px;">ВОЙДИТЕ или
+                                    ЗАРЕГИСТРИРУЙТЕСЬ</p>
+                                <p class="card_header" style="margin-bottom: 55px;">В целях безопастности и сохранности
+                                    данных просим вас <br> войти в аккаунт или зарегистрировать новый</p>
+                            </div>
+                        </div>
+                    {% endif %}
+</body>
+
+</html>

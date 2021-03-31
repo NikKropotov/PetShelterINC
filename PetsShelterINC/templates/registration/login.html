@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../../static/assets/css/login.css">
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
+    <title>PetShelter INC</title>
+    <style>
+        .reg-btn {
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 16px;
+            text-align: right;
+            display: block;
+            padding: .5rem 1rem;
+            color: #BABCDA;
+            background: #303056;
+            border: 3px solid #303056;
+            box-sizing: border-box;
+            border-radius: 41px;
+        }
+
+        .reg-btn:focus, .reg-btn:hover {
+            transition: 0.3s ease-out;
+            text-decoration: none;
+            color: #303056;
+            border: 3px solid #303056;
+            background: none;
+        }
+
+        .enter-btn {
+            margin-left: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            display: block;
+            padding: .5rem 1rem;
+            line-height: 16px;
+            text-align: right;
+            color: #303056;
+            border: 3px solid #303056;
+            box-sizing: border-box;
+            border-radius: 41px;
+        }
+
+        .enter-btn:focus, .enter-btn:hover {
+            transition: 0.3s ease-out;
+            text-decoration: none;
+            color: #BABCDA;
+            background: #303056;
+            border: 3px solid #303056;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="logo_container">
+                <img class="logo_img" src="../../static/assets/img/skull_logo.png">
+                <a class="navbar-brand">NIK_RAYN INC</a>
+            </div>
+            <form class="d-flex">
+                <div class="nav">
+                    <a class="nav-link" href="/pets">Животные</a>
+                    <a class="nav-link" href="/map">Карта</a>
+                    <a class="nav-link" href="#">Объявления</a>
+                    <a class="nav-link" href="#">Помощь</a>
+                    <a class="enter-btn" href="{% url 'signup_url' %}">Регистрация</a>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="main_container">
+    <div class="pic">
+        <img src="../../static/assets/img/blue_dog.png">
+    </div>
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        <div class="main_card">
+            {% csrf_token %}
+            <p class="card_header">ВХОД</p>
+            <div class="input_reg">
+                <input class="user_name_input" name="username" placeholder="Имя пользователя">
+            </div>
+            <div class="input_reg">
+                <input class="user_name_input" name="password" type="password" placeholder="Пароль">
+            </div>
+            <div class="btn">
+                <button class="submit_btn" type="submit">ВХОД</button>
+            </div>
+            <div class="forgot_pass_div">
+                <a class="forgot_pass" href="#">Забыли пароль?</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>

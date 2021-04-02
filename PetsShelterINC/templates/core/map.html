@@ -9,9 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
           rel="stylesheet">
-    <!-- Подключаем API -->
-    <!-- Подробнее https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/load-docpage/ -->
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<a4a57811-32cc-4340-ac88-766844728107>"
+            type="text/javascript"></script>
     <title>PetShelter INC</title>
     <style>
         .reg-btn {
@@ -108,7 +107,13 @@
                         </nav>
                         </div>
 
+                        {#                        <div id="map" style="height: 550px; margin-top: 20px">#}
+                        {#                        </div>#}
                         <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A05bae6116be56606223d44b628a1350743cb4e6af9666b052aac64b548f85467&amp;source=constructor"
+                                width="100%" height="550" style="margin: 40px 0px 10px 0px; padding-bottom: 20px"
+                                frameborder="0"></iframe>
+
+                        <iframe src="https://www.google.com/maps/d/embed?mid=12eFMXmOIPMOcLaATcWC-tI5McpA51I56&hl=ru"
                                 width="100%" height="550" style="margin: 40px 0px 10px 0px; padding-bottom: 20px"
                                 frameborder="0"></iframe>
                     {% else %}
@@ -129,6 +134,21 @@
                             </div>
                         </div>
                     {% endif %}
+
+<script>
+    ymaps.ready(function () {
+        var myMap = new ymaps.Map('map', {
+            center: [55.751574, 37.573856],
+            zoom: 9,
+            // Также доступны наборы 'default' и 'largeMapDefaultSet'
+            // Элементы управления в наборах подобраны оптимальным образом
+            // для карт маленького, среднего и крупного размеров.
+            controls: ['smallMapDefaultSet']
+        }, {
+            searchControlProvider: 'yandex#search'
+        });
+    });
+</script>
 </body>
 
 </html>

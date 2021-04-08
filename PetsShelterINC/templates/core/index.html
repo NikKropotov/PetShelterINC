@@ -66,6 +66,31 @@
             border: 3px solid #303056;
         }
 
+        .poster {
+            position: relative;
+        }
+
+        .descr {
+            display: none;
+            margin-left: -60px;
+            padding: 10px;
+            margin-top: 15px;
+            background: #f3f3f3;
+            height: fit-content;
+            -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .poster:hover .descr {
+            display: block;
+            position: absolute;
+            top: 15px;
+            z-index: 9999;
+            width: fit-content;
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 
@@ -84,8 +109,18 @@
                     <a class="nav-link" href="#">Объявления</a>
                     <a class="nav-link" href="#">Помощь</a>
                     {% if user.is_authenticated %}
-                        <p class="nav-link" style="margin-bottom: 0px">Аккаунт: {{ user.username }}</p>
-                        <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                        {% if user.is_superuser %}
+                            <div class="nav-link poster" style="margin-bottom: 0px">Аккаунт: {{ user.username }}
+                                <div class="descr">
+                                    <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
+                                    <a class="nav-link" href="/admin">Админинистрационная панель</a>
+                                </div>
+                            </div>
+                            <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                        {% else %}
+                            <p class="nav-link" style="margin-bottom: 0px">Аккаунт: {{ user.username }}</p>
+                            <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                        {% endif %}
                     {% else %}
                         <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
                         <a class="enter-btn" href="/accounts/login/">Вход</a>

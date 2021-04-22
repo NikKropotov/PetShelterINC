@@ -29,7 +29,7 @@ class Pets(models.Model):
         ('Нет', 'Нет'),
     )
     pet_sterilization = models.CharField('Стерилизация', max_length=10, choices=Ste)
-    pet_toilet = models.CharField('Приучен к туалету', max_length=25)
+    pet_toilet = models.CharField('Приучен к туалету', max_length=25, blank=True)
     Size = (
         ('Крошечный', 'Крошечный'),
         ('Небольшой', 'Небольшой'),
@@ -48,16 +48,16 @@ class Pets(models.Model):
     pet_wool_color = models.CharField('Цвет шерсти', max_length=100)
     pet_weight = models.CharField('Вес', max_length=50)
     pet_health = models.CharField('Здоровье', max_length=100)
-    pet_privicies = models.CharField('Особенности', max_length=100)
+    pet_privicies = models.CharField('Особенности', max_length=100, blank=True)
     pet_temperament = models.CharField('Темперамент', max_length=30)
-    pet_human_centred = models.CharField('Ориентированность на людей', max_length=30)
-    pet_attitude_chlidren = models.CharField('Ориентированность на детей', max_length=30)
-    pet_attitude_cat = models.CharField('Ориентированность на котов', max_length=30)
-    pet_attitude_other_pets = models.CharField('Ориентированность на других собак', max_length=30)
-    pet_keeping = models.CharField('Содержание', max_length=50)
-    pet_live_in_apartment = models.CharField('Приучен к жизни в квартире', max_length=20)
-    pet_accustomed_to_a_leash = models.CharField('Приучен к поводку', max_length=20)
-    pet_training = models.CharField('Приучен к дрессировкам', max_length=20)
+    pet_human_centred = models.CharField('Ориентированность на людей', max_length=30, blank=True)
+    pet_attitude_chlidren = models.CharField('Ориентированность на детей', max_length=30, blank=True)
+    pet_attitude_cat = models.CharField('Ориентированность на котов', max_length=30, blank=True)
+    pet_attitude_other_pets = models.CharField('Ориентированность на других собак', max_length=30, blank=True)
+    pet_keeping = models.CharField('Содержание', max_length=50, blank=True)
+    pet_live_in_apartment = models.CharField('Приучен к жизни в квартире', max_length=20, blank=True)
+    pet_accustomed_to_a_leash = models.CharField('Приучен к поводку', max_length=20, blank=True)
+    pet_training = models.CharField('Приучен к дрессировкам', max_length=20, blank=True)
     pet_location = models.CharField('Место нахождения', max_length=45)
     contact_idcontact = models.IntegerField('Контакты')
     shelter_idshelter = models.IntegerField('Номер приюта')
@@ -74,9 +74,9 @@ class Contact(models.Model):
     idcontact = models.AutoField('Id_contact', primary_key=True)
     contact_mane = models.CharField('Имя', max_length=45)
     contact_phone = models.CharField('Номер телефона', max_length=45)
-    contact_email = models.CharField('Email', max_length=45)
-    contact_two_name = models.CharField('Запасное Имя', max_length=45)
-    contact_two_phone = models.CharField('Запасной номер телефона', max_length=45)
+    contact_email = models.CharField('Email', max_length=45, blank=True)
+    contact_two_name = models.CharField('Запасное Имя', max_length=45, blank=True)
+    contact_two_phone = models.CharField('Запасной номер телефона', max_length=45, blank=True)
 
     class Meta:
         verbose_name = 'Контакты'

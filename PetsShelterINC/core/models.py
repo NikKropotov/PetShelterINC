@@ -1,5 +1,21 @@
-from django.db import connections
 from django.db import models
+from django.urls import reverse
+from six import python_2_unicode_compatible
+
+
+# Таблица с контактами.
+class Contact(models.Model):
+    idcontact = models.AutoField('Id_contact', primary_key=True)
+    contact_mane = models.CharField('Имя', max_length=45)
+    contact_phone = models.CharField('Номер телефона', max_length=45)
+    contact_email = models.CharField('Email', max_length=45, blank=True)
+    contact_two_name = models.CharField('Запасное Имя', max_length=45, blank=True)
+    contact_two_phone = models.CharField('Запасной номер телефона', max_length=45, blank=True)
+
+    class Meta:
+        verbose_name = 'Контакты'
+        verbose_name_plural = 'Контакты'
+        db_table = "contact"
 
 
 # Таблица с животными.
@@ -63,22 +79,10 @@ class Pets(models.Model):
     shelter_idshelter = models.IntegerField('Номер приюта')
     petImagePath = models.ImageField('Фото животного', upload_to='Pets_images')
 
+    def get_absolute_url(self):
+        return reverse('pets_detail', kwargs={'idpet': self.idpet})
+
     class Meta:
         verbose_name = 'Животные'
         verbose_name_plural = 'Животные'
         db_table = "pet"
-
-
-# Таблица с контактами.
-class Contact(models.Model):
-    idcontact = models.AutoField('Id_contact', primary_key=True)
-    contact_mane = models.CharField('Имя', max_length=45)
-    contact_phone = models.CharField('Номер телефона', max_length=45)
-    contact_email = models.CharField('Email', max_length=45, blank=True)
-    contact_two_name = models.CharField('Запасное Имя', max_length=45, blank=True)
-    contact_two_phone = models.CharField('Запасной номер телефона', max_length=45, blank=True)
-
-    class Meta:
-        verbose_name = 'Контакты'
-        verbose_name_plural = 'Контакты'
-        db_table = "contact"

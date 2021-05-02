@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,7 +110,7 @@
                     <a class="nav-link" href="#">Помощь</a>
                     {% if user.is_authenticated %}
                         {% if user.is_superuser %}
-                            <div class="nav-link poster" style="margin-bottom: 0px">Аккаунт: {{ user.username }}
+                            <div class="nav-link poster" style="margin-bottom: 0">Аккаунт: {{ user.username }}
                                 <div class="descr">
                                     <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
                                     <a class="nav-link" href="/admin">Админинистрационная панель</a>
@@ -117,7 +118,7 @@
                             </div>
                             <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
                         {% else %}
-                            <p class="nav-link" style="margin-bottom: 0px">Аккаунт: {{ user.username }}</p>
+                            <p class="nav-link" style="margin-bottom: 0">Аккаунт: {{ user.username }}</p>
                             <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
                         {% endif %}
                     {% else %}

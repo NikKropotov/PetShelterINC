@@ -1,85 +1,46 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../../static/assets/css/pets_style.css">
-    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <title>PetShelter INC</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/map_style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
           rel="stylesheet">
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<a4a57811-32cc-4340-ac88-766844728107>"
+    <!-- Yandex API -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=<a4a57811-32cc-4340-ac88-766844728107>"
             type="text/javascript"></script>
-    <title>PetShelter INC</title>
+    <script src="{% static 'js/map_script.js' %}" type="text/javascript"></script>
+    <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <script>
+        let currBox = 0;
+
+        function Selected(a) {
+            if (a) {
+                document.getElementById("Block" + a).style.display = "block";
+                if (currBox) document.getElementById("Block" + currBox).style.display = "none";
+                currBox = a;
+            } else alert("Not selected");
+        }
+    </script>
     <style>
-        .reg-btn {
-            font-family: 'Roboto', sans-serif;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 16px;
-            text-align: right;
-            display: block;
-            padding: .5rem 1rem;
-            color: #BABCDA;
-            background: #303056;
-            border: 3px solid #303056;
-            box-sizing: border-box;
-            border-radius: 41px;
+        .box {
+            margin: 40px 0 10px 0;
+            padding-bottom: 20px;
+            display: none;
         }
 
-        .reg-btn:focus, .reg-btn:hover {
-            transition: 0.3s ease-out;
-            text-decoration: none;
-            color: #303056;
-            border: 3px solid #303056;
-            background: none;
-        }
-
-        .enter-btn {
-            margin-left: 10px;
-            font-family: 'Roboto', sans-serif;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 18px;
-            display: block;
-            padding: .5rem 1rem;
-            line-height: 16px;
-            text-align: right;
-            color: #303056;
-            border: 3px solid #303056;
-            box-sizing: border-box;
-            border-radius: 41px;
-        }
-
-        .enter-btn:focus, .enter-btn:hover {
-            transition: 0.3s ease-out;
-            text-decoration: none;
-            color: #BABCDA;
-            background: #303056;
-            border: 3px solid #303056;
-        }
-
-        .not_auth_card {
-            position: center;
-            width: max-content;
-            height: max-content;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-sizing: border-box;
-            backdrop-filter: blur(10px);
-            border-radius: 35px;
-            align-items: center;
-            text-align: center;
-        }
-
-        .card_header {
-            font-style: normal;
-            font-weight: 900;
-            font-size: 24px;
-            line-height: 109%;
-            color: rgba(48, 48, 86, 0.7);
+        body {
+            background: linear-gradient(130.02deg, rgba(202, 224, 251, 0.75) 0.66%, rgba(167, 153, 194, 0.93) 83.32%) no-repeat fixed;
         }
     </style>
 </head>
@@ -89,7 +50,7 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="logo_container">
-                <img class="logo_img" src="../../static/assets/img/skull_logo.png" alt="logo">
+                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}" alt="logo">
                 <a class="navbar-brand">NIK_RAYN INC</a>
             </div>
             <form class="d-flex">
@@ -99,7 +60,7 @@
                     <a class="nav-link" href="#">Объявления</a>
                     <a class="nav-link" href="#">Помощь</a>
                     {% if user.is_authenticated %}
-                        <p class="nav-link" style="margin-bottom: 0px">Аккаунт: {{ user.username }}</p>
+                        <p class="nav-link" style="margin-bottom: 0">Аккаунт: {{ user.username }}</p>
                         <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
                         </div>
                         </form>
@@ -107,15 +68,30 @@
                         </nav>
                         </div>
 
-                        {#                        <div id="map" style="height: 550px; margin-top: 20px">#}
+                        {#                        <div id="map" style="height: 550px; margin: 40px 0 10px 0; padding-bottom: 20px">#}
                         {#                        </div>#}
-                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A05bae6116be56606223d44b628a1350743cb4e6af9666b052aac64b548f85467&amp;source=constructor"
-                                width="100%" height="550" style="margin: 40px 0px 10px 0px; padding-bottom: 20px"
-                                frameborder="0"></iframe>
+                        <div class="main_container" style="padding: 25px 40px;">
+                            {#                            <select id="actSelect" class="Validate_Required " name="actSelect"#}
+                            {#                                    onchange="Selected(this.value)">#}
+                            {#                                <option selected="selected" disabled>Выберите категорию</option>#}
+                            {#                                <option value="1">Зоомагазины</option>#}
+                            {#                                <option value="2">Приюты</option>#}
+                            {#                                <option value="3">Ветеринарные клиники</option>#}
+                            {#                                <option value="4">Мероприятия</option>#}
+                            {#                            </select>#}
+                            {#                            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0067af453a7f023087c21f3ab0878ecf0e64514b094017b52a8f95c9537b3e0e&source=constructor"#}
+                            {#                                    width="100%" height="550"#}
+                            {#                                    frameborder="0" id="Block1" class="box"></iframe>#}
+                            {#                            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A05bae6116be56606223d44b628a1350743cb4e6af9666b052aac64b548f85467&source=constructor"#}
+                            {#                                    width="100%" height="550"#}
+                            {#                                    frameborder="0" id="Block2" class="box"></iframe>#}
+                            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=12eFMXmOIPMOcLaATcWC-tI5McpA51I56"
+                                    width="100%" height="550" frameborder="0"></iframe>
+                        </div>
 
-                        <iframe src="https://www.google.com/maps/d/embed?mid=12eFMXmOIPMOcLaATcWC-tI5McpA51I56&hl=ru"
-                                width="100%" height="550" style="margin: 40px 0px 10px 0px; padding-bottom: 20px"
-                                frameborder="0"></iframe>
+                        {#<iframe src="https://www.google.com/maps/d/embed?mid=12eFMXmOIPMOcLaATcWC-tI5McpA51I56&hl=ru"#}
+                        {#width="100%" height="550" style="margin: 40px 0px 10px 0px; padding-bottom: 20px"#}
+                        {#frameborder="0"></iframe>#}
                     {% else %}
                         <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
                         <a class="enter-btn" href="/accounts/login/">Вход</a>
@@ -134,21 +110,6 @@
                             </div>
                         </div>
                     {% endif %}
-
-<script>
-    ymaps.ready(function () {
-        var myMap = new ymaps.Map('map', {
-            center: [55.751574, 37.573856],
-            zoom: 9,
-            // Также доступны наборы 'default' и 'largeMapDefaultSet'
-            // Элементы управления в наборах подобраны оптимальным образом
-            // для карт маленького, среднего и крупного размеров.
-            controls: ['smallMapDefaultSet']
-        }, {
-            searchControlProvider: 'yandex#search'
-        });
-    });
-</script>
 </body>
 
 </html>

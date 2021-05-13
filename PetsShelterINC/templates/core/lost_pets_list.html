@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>PetShelter INC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/pets_style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&family=Lato:wght@400;700&display=swap"
+          rel="stylesheet">
+    <!-- Awesom Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Scripts -->
+    <script src="{% static 'js/filter_script.js' %}"></script>
+    <script src="{% static 'js/hogan-3.0.1.js' %}"></script>
+    <script src="{% static 'js/docs.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="header" id="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="logo_container">
+                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}" alt="logo">
+                <a class="navbar-brand">NIK_RAYN INC</a>
+            </div>
+            <form class="d-flex">
+                <div class="nav" style="align-items: center; text-align: center">
+                    <a class="nav-link" href="/">Главная</a>
+                    <a class="nav-link" href="/map">Карта</a>
+                    <a class="nav-link" href="#">Объявления</a>
+                    <a class="nav-link" href="#">Помощь</a>
+                    {% if user.is_authenticated %}
+                        <p class="nav-link" style="margin-bottom: 0">Аккаунт: {{ user.username }}</p>
+                        <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                        </div>
+                        </form>
+                        </div>
+                        </nav>
+                        </div>
+
+                        <div class="main_container">
+                            <div class="filters">
+                                <div class="filter_header">Фильтры</div>
+                                <button class="filter_header filter_after" id="breed_btn_filter"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#breed_filter" aria-expanded="false"
+                                        aria-controls="breed_filter" type="button">
+                                    Порода
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+
+                                <button class="filter_header filter_after" id="age_btn_filter"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#age_filter" aria-expanded="false"
+                                        aria-controls="age_filter" type="button">
+                                    Возраст
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+
+                                <button class="navbar-toggle filter_header filter_after" id="gender_btn_filter"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#gender_filter" aria-expanded="false"
+                                        aria-controls="gender_filter" type="button">
+                                    Пол
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                                <button class="filter_header filter_after" id="other_btn_filter"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#other_filter" aria-expanded="false"
+                                        aria-controls="other_filter" type="button">
+                                    Дата
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div>
+
+                            <form action="{% url 'filter' %}" method="get" name="filter">
+                                <div id="breed_filter" class="collapse">
+                                    <div class="card card-body filter">
+                                        <ul style="list-style: none">
+                                            {% for breeds in view.get_pets_breeds %}
+                                                <li>
+                                                    <input type="checkbox" name="breeds"
+                                                           value="{{ breeds.idpet_breed }}">
+                                                    <span>{{ breeds.breed }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div id="age_filter" class="collapse">
+                                    <div class="card card-body filter" style="margin-left: 360px;">
+                                        <ul style="list-style: none">
+                                            {% for genders in view.get_pets_genders %}
+                                                <li>
+                                                    <input type="radio" name="genders"
+                                                           value="{{ genders.pet_gender }}">
+                                                    <span>{{ genders.pet_gender }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div id="gender_filter" class="collapse">
+                                    <div class="card card-body filter" style="margin-left: 550px;" id="gen_f">
+                                        <ul style="list-style: none; display: flex; padding: 0; margin-bottom: 0; justify-content: space-around;">
+                                            {% for genders in view.get_pets_genders %}
+                                                <label class="container">{{ genders.pet_gender }}
+                                                    <input type="radio" name="genders"
+                                                           value="{{ genders.pet_gender }}">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button type="submit" id="submit1">Найти</button>
+                            </form>
+
+                            <div class="container_cards_filters">
+                                <div class="row" style="margin: 0">
+                                    <main class="main cards-holder">
+                                        {% for pets_list in pets %}
+                                            <a class="card-link" href="{{ pets_list.get_absolute_url }}"
+                                               style="margin-left: 0;">
+                                                <div class="card" style="border-radius: 9px;">
+                                                    <div class="card__badges">
+                                                        <div class="card__badge card__badge--class">{{ pets_list.pet_status }}</div>
+                                                    </div>
+                                                    <div class="card__img" style="    border-radius: 9px;">
+                                                        <img src="{{ MEDIA_URL }}{{ pets_list.petImagePath.url }}"
+                                                             alt="{{ pets_list.pet_name }}">
+                                                    </div>
+                                                    <div class="card__content">
+                                                        <h4 class="card__title">{{ pets_list.pet_name }}</h4>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        {% endfor %}
+                                    </main>
+                                </div>
+                                {% include "include/pagination.html" with PetsListView=page_obj %}
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
+                        <a class="enter-btn" href="/accounts/login/">Вход</a>
+                        </div>
+                        </form>
+                        </div>
+                        </nav>
+                        </div>
+
+                        <div class="main_container"
+                             style="align-items: center; text-align: center; justify-content: center; display: flex;">
+                            <div class="not_auth_card">
+                                <p class="card_header" style="margin: 55px 205px 15px 205px;">ВОЙДИТЕ или
+                                    ЗАРЕГИСТРИРУЙТЕСЬ</p>
+                                <p class="card_header" style="margin-bottom: 55px;">В целях безопастности и сохранности
+                                    данных просим вас <br> войти в аккаунт или зарегистрировать новый</p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+<script>
+    $(document).mouseup(function (e) {
+        var container = $("#breed_filter");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.collapse('hide');
+        }
+    });
+    $(document).mouseup(function (e) {
+        var container = $("#age_filter");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.collapse('hide');
+        }
+    });
+    $(document).mouseup(function (e) {
+        var container = $("#gender_filter");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.collapse('hide');
+        }
+    });
+    $(document).mouseup(function (e) {
+        var container = $("#other_filter");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.collapse('hide');
+        }
+    });
+</script>
+
+</body>
+
+</html>

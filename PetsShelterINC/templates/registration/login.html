@@ -1,18 +1,21 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../../static/assets/css/login.css">
-    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>PetShelter INC</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
           rel="stylesheet">
-    <title>PetShelter INC</title>
 </head>
 
 <body>
@@ -20,7 +23,7 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="logo_container">
-                <img class="logo_img" src="../../static/assets/img/skull_logo.png">
+                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}">
                 <a class="navbar-brand">NIK_RAYN INC</a>
             </div>
             <form class="d-flex">
@@ -38,7 +41,7 @@
 
 <div class="main_container">
     <div class="pic">
-        <img src="../../static/assets/img/blue_dog.png">
+        <img src="{% static 'assets/img/blue_dog.png' %}">
     </div>
     <form method="post" class="login-form">
         {% csrf_token %}

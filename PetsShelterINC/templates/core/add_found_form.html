@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>PetShelter INC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/lost_found_pets_style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&family=Lato:wght@400;700&display=swap"
+          rel="stylesheet">
+    <!-- Awesom Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Scripts -->
+    <script src="{% static 'js/filter_script.js' %}"></script>
+    <script src="{% static 'js/hogan-3.0.1.js' %}"></script>
+    <script src="{% static 'js/docs.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+    <style>
+        .poster {
+            position: relative;
+        }
+
+        .descr {
+            display: none;
+            margin-left: -60px;
+            padding: 10px;
+            margin-top: 15px;
+            background: #f3f3f3;
+            height: fit-content;
+            -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .poster:hover .descr {
+            display: block;
+            position: absolute;
+            top: 15px;
+            z-index: 9999;
+            width: fit-content;
+            border-radius: 5px;
+        }
+
+        .div_add_btn {
+            z-index: 100000;
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+        }
+
+        .add_button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 22px;
+            text-align: center;
+            color: #FFFFFF;
+            background-color: #FF5B79;
+        }
+
+        .add_button:hover {
+            transition: 0.5s;
+            filter: drop-shadow(0px 4px 16px #FF5B79);
+        }
+
+        .add_button, .add_button:active, .add_button:focus {
+            outline: none;
+            border: none;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="logo_container">
+                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}" alt="logo">
+                <a class="navbar-brand">NIK_RAYN INC</a>
+            </div>
+            <form class="d-flex">
+                <div class="nav" style="align-items: center; text-align: center">
+                    <a class="nav-link" href="/">Главная</a>
+                    <a class="nav-link" href="/pets">Животные</a>
+                    <a class="nav-link" href="/map">Карта</a>
+                    <div class="nav-link poster" style="margin-bottom: 0">Объявления
+                        <div class="descr">
+                            <a class="nav-link" href="/found_pets">Найдено животное</a>
+                            <a class="nav-link" href="/admin">Потеряно животное</a>
+                        </div>
+                    </div>
+                    <a class="nav-link" href="#">Помощь</a>
+                    <p class="nav-link" style="margin-bottom: 0">Аккаунт: {{ user.username }}</p>
+                    <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+<div class="main_container">
+    <form method="post" enctype="multipart/form-data"
+          action="">
+        {% csrf_token %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Найдено животное</h5>
+                <a type="button" class="close" href="{% url 'found_pets_list' %}">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                {{ form.as_p }}
+{#                <div class="form-row {% if field.errors %} invalid{% endif %}">#}
+{#                    <div class="col-md-4 mb-3">#}
+{#                        <label for="id_found_pet_name">Кличка</label>#}
+{#                        <input type="text" class="form-control"#}
+{#                               id="id_found_pet_name"#}
+{#                               placeholder="Песик" name="found_pet_name" required>#}
+{#                        <div class="valid-feedback">#}
+{#                            Заполнено верно!#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-md-4 mb-3">#}
+{#                        <label for="id_found_pet_breed">Порода</label>#}
+{#                        <input type="text" class="form-control" id="id_found_pet_breed"#}
+{#                               placeholder="Лабрадор" name="found_pet_breed" required>#}
+{#                        <div class="valid-feedback">#}
+{#                            Заполнено верно!#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-md-4 mb-3">#}
+{#                        <label for="id_found_pet_color">Цвет шерсти</label>#}
+{#                        <input type="text" class="form-control" id="id_found_pet_color"#}
+{#                               placeholder="Золотой" name="found_pet_color" required>#}
+{#                        <div class="valid-feedback">#}
+{#                            Заполнено верно!#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="form-row {% if field.errors %} invalid{% endif %}">#}
+{#                    <div class="form-group col-md-4">#}
+{#                        <label for="id_found_pet_gender">Пол</label>#}
+{#                        <select id="id_found_pet_gender" class="form-control"#}
+{#                                name="found_pet_gender">#}
+{#                            <option selected value="Мужской">Мужской</option>#}
+{#                            <option value="Женский">Женский</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{#                    <div class="form-group col-md-4">#}
+{#                        <label for="id_found_pet_size">Размер</label>#}
+{#                        <select id="id_found_pet_size" class="form-control"#}
+{#                                name="found_pet_size">#}
+{#                            <option selected value="Крошечный">Крошечный</option>#}
+{#                            <option value="Небольшой">Небольшой</option>#}
+{#                            <option value="Средний">Средний</option>#}
+{#                            <option value="Крупный">Крупный</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{#                    <div class="col-md-4 mb-3">#}
+{#                        <label for="id_found_pet_age">Примерный возраст</label>#}
+{#                        <input type="text" class="form-control" id="id_found_pet_age"#}
+{#                               placeholder="3 года" name="found_pet_age" required>#}
+{#                        <div class="valid-feedback">#}
+{#                            Заполнено верно!#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="input-group">#}
+{#                        <span class="input-group-text">Дата и время</span>#}
+{#                        <input type="date" aria-label="Дата" class="form-control"#}
+{#                               name="currentDate" id="dateInput">#}
+{#                        <input type="time" aria-label="Время" class="form-control"#}
+{#                               name="currentTime" id="timeInput">#}
+{#                    </div>#}
+{#                    <label for="id_found_pet_health" class="col-form-label"#}
+{#                           style="margin-top: 15px;">Состояние#}
+{#                        здоровья</label>#}
+{#                    <textarea class="form-control" id="id_found_pet_health"#}
+{#                              name="found_pet_health"></textarea>#}
+{#                    <label for="id_found_pet_description" class="col-form-label">Дополнительное#}
+{#                        описание</label>#}
+{#                    <textarea class="form-control" id="id_found_pet_description"#}
+{#                              name="found_pet_description"></textarea>#}
+{##}
+{#                    <label for="id_found_pet_found_location"#}
+{#                           style="margin-top: 15px;">Город</label>#}
+{#                    <div class="input-group">#}
+{#                        <input type="text" class="form-control"#}
+{#                               id="id_found_pet_found_location"#}
+{#                               placeholder="Москва" name="found_pet_found_location"#}
+{#                               required>#}
+{#                        <div class="valid-feedback">#}
+{#                            Заполнено верно!#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <h6 class="form-label" style="margin-top: 25px;">Ваши#}
+{#                    контактные данные</h6>#}
+{#                <div class="form-row {% if field.errors %} invalid{% endif %}">#}
+{#                    <div class="col-md-6 mb-3">#}
+{#                        <label for="id_found_contact_name">Имя</label>#}
+{#                        <input type="text" class="form-control" id="id_found_contact_name"#}
+{#                               placeholder="Введите ваше Имя" name="found_contact_name"#}
+{#                               required>#}
+{#                        <div class="invalid-feedback">#}
+{#                            Пожалуйста введите ваше имя.#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-md-6 mb-3">#}
+{#                        <label for="id_found_contact_phone">Телефон</label>#}
+{#                        <input type="text" class="form-control" id="id_found_contact_phone"#}
+{#                               placeholder="Номер телефона" name="found_contact_phone"#}
+{#                               required>#}
+{#                        <div class="invalid-feedback">#}
+{#                            Пожалуйста введите ваш номер телефона.#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="form-group {% if field.errors %} invalid{% endif %}">#}
+{#                    <label for="id_found_contact_email">Почта</label>#}
+{#                    <div class="input-group mb-3">#}
+{#                        <input type="text" class="form-control"#}
+{#                               placeholder="Электронная почта"#}
+{#                               aria-label="Recipient's username" id="id_found_contact_email"#}
+{#                               aria-describedby="basic-addon2" name="found_contact_email">#}
+{#                        <span class="input-group-text" id="basic-addon2">@example.com</span>#}
+{#                        <div class="invalid-feedback">#}
+{#                            Пожалуйста введите вашу почту.#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="form-group {% if field.errors %} invalid{% endif %}">#}
+{#                    <label for="id_found_petImagePath">Фото животного</label>#}
+{#                    <input type="file" class="form-control-file"#}
+{#                           id="id_found_petImagePath" name="found_petImagePath">#}
+{#                </div>#}
+{#                <div class="form-group {% if field.errors %} invalid{% endif %}">#}
+{#                    <div class="form-check">#}
+{#                        <input class="form-check-input" type="checkbox" value=""#}
+{#                               id="invalidCheck" required>#}
+{#                        <label class="form-check-label" for="invalidCheck">#}
+{#                            Согласиться с обработкой данных#}
+{#                        </label>#}
+{#                        <div class="invalid-feedback">#}
+{#                            Вы не согласились с обработкой данных.#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+
+
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary" href="{% url 'found_pets_list' %}">
+                        Закрыть
+                    </a>
+                    <button type="submit" class="btn btn-primary" id="create_pet">Оправить
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>
+
+</body>
+
+</html>
+

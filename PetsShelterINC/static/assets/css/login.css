@@ -13,7 +13,7 @@ body {
     padding: 0 165px;
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(130.02deg, rgba(202, 224, 251, 0.75) 0.66%, rgba(167, 153, 194, 0.93) 83.32%);
+    background: linear-gradient(130.02deg, rgba(202, 224, 251, 0.75) 0.66%, rgba(167, 153, 194, 0.93) 83.32%) no-repeat fixed;
 }
 
 .logo_img {

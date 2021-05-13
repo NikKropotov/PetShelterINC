@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>PetShelter INC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/pet_detail_style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&family=Lato:wght@400;700&display=swap"
+          rel="stylesheet">
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $('#carousel').carousel({
+                interval: 10000,
+                keyboard: false,
+                pause: 'hover',
+                ride: false
+            });
+        });
+    </script>
+    <style>
+        .poster {
+            position: relative;
+        }
+
+        .descr {
+            display: none;
+            margin-left: -60px;
+            padding: 10px;
+            margin-top: 15px;
+            background: #f3f3f3;
+            height: fit-content;
+            -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .poster:hover .descr {
+            display: block;
+            position: absolute;
+            top: 15px;
+            z-index: 9999;
+            width: max-content;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header" id="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="logo_container">
+                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}" alt="logo">
+                <a class="navbar-brand">NIK_RAYN INC</a>
+            </div>
+            <form class="d-flex">
+                <div class="nav" style="align-items: center; text-align: center">
+                    <a class="nav-link" href="/pets">Животные</a>
+                    <a class="nav-link" href="/map">Карта</a>
+                    <div class="nav-link poster" style="margin-bottom: 0">Объявления
+                        <div class="descr">
+                            <a class="nav-link" href="/found_pets">Найдено животное</a>
+                            <a class="nav-link" href="/admin">Потеряно животное</a>
+                        </div>
+                    </div>
+                    <a class="nav-link" href="#">Помощь</a>
+                    <p class="nav-link" style="margin-bottom: 0px">Аккаунт: {{ user.username }}</p>
+                    <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="main_container">
+    <div class="container" style="text-align: center">
+        <div class="row">
+            <div class="col">
+                <h6 class="pet_name_header">{{ found_pet_detail.found_pet_name }}</h6>
+                <img src="{{ MEDIA_URL }}{{ found_pet_detail.found_petImagePath.url }}"
+                     alt="{{ found_pet_detail.found_pet_name }}"
+                     style="border-radius: 35px; width: 430px; height: 430px;">
+            </div>
+            <div class="col">
+                <h6 class="pet_name_header"
+                    style="opacity: 0; margin-left: 0; width: fit-content">{{ found_pet_detail.found_pet_name }}</h6>
+                <div class="info_card">
+                    <div class="container" style="justify-content: center; text-align: -webkit-center;">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"
+                             style="display: contents;">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <table style="margin-top: 15px">
+                                        <tr style="white-space: pre-line; vertical-align: middle; align-items: center;">
+                                            <td>
+                                                <div class="col info_header">Статус</div>
+                                            </td>
+                                            <td style="align-items: center; text-align: center; vertical-align: baseline;">
+                                                <div class="pet_status_badge pet_status_badge--class">{{ found_pet_detail.found_pet_status }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 40px; vertical-align: middle;">
+                                            <td>
+                                                <div class="col info_header">Пол</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_pet_gender }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td>
+                                                <div class="col info_header">Возраст</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_pet_age }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="white-space: pre-line; vertical-align: middle;">
+                                            <td>
+                                                <div class="col info_header">Порода</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_pet_breed }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td>
+                                                <div class="col info_header">Цвет</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_pet_color }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td>
+                                                <div class="col info_header">Здоровье</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_pet_health }}</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="carousel-item">
+                                    <table style="margin-top: 15px">
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Размер</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_pet_size }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Дата и время</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_pet_found_datetime }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Город</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_pet_found_location }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle; margin-top: 5px">
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Контакты</div>
+                                            </td>
+                                            <td>
+                                                <div class="col"></div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Имя</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_contact_name }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Телефон</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_contact_phone }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle;">
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Почта</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ found_pet_detail.found_contact_email }}</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                               data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                               data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="more_info_card" style="text-align: start; padding: 40px;">
+            <div class="info_header">Описание</div>
+            <div>
+                {{ found_pet_detail.found_pet_description }}
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

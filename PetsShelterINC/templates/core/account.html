@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>PetShelter INC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/pets_style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
+    <style>
+        .table_header {
+            width: 100%;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            justify-content: space-around;
+            color: whitesmoke;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="logo_container">
+                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}" alt="logo">
+                <a class="navbar-brand">NIK_RAYN INC</a>
+            </div>
+            <form class="d-flex">
+                <div class="nav" style="align-items: center; text-align: center">
+                    <a class="nav-link" href="/">Главная</a>
+                    <a class="nav-link" href="/pets">Животные</a>
+                    <a class="nav-link" href="/map">Карта</a>
+                    <a class="nav-link " href="/found_pets">Объявления</a>
+                    <a class="nav-link" href="#">Помощь</a>
+                    <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="main_container">
+    <h3 style="color: #303056;">Аккаунт: {{ user.username }}</h3>
+    <h4 style="color: #303056;">Ваши объявления о нахождении</h4>
+
+    <table class="table table-striped table-bordered table-sm">
+        <thead class="table_header">
+        <tr>
+            <th>ID</th>
+            <th>Имя животного</th>
+            <th>Фото животного</th>
+            <th>Статус животного</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody style="color: whitesmoke">
+        {% for found_pets_list in found_pets %}
+            <tr>
+                <td>{{ found_pets_list.idfound_pet }}</td>
+                <td>{{ found_pets_list.found_pet_name }}</td>
+                <td style="width: 37%"><img src="{{ MEDIA_URL }}{{ found_pets_list.found_petImagePath.url }}"
+                                            alt="{{ found_pets_list.pet_name }}" width="15%"></td>
+                <td>{{ found_pets_list.found_pet_status }}</td>
+                <td style="justify-content: space-between; display: table-cell; width: 10%; height: 100%;">
+                    <a href="{{ found_pets_list.get_absolute_url }}">Посмотреть</a>
+                    <a href="{% url 'edit_found_pets' found_pets_list.idfound_pet %}"><span
+                            class="glyphicon glyphicon-pencil">Изменить</span></a>
+                    <a href="account/delete/found_pets/{{ found_pets_list.idfound_pet }}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h4 style="color: #303056;">Ваши объявления о пропаже</h4>
+    <table class="table table-striped table-bordered table-sm">
+        <thead class="table_header">
+        <tr>
+            <th>ID</th>
+            <th>Имя животного</th>
+            <th>Фото животного</th>
+            <th>Статус животного</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody style="color: whitesmoke">
+        {% for lost_pets_list in lost_pets %}
+            <tr>
+                <td>{{ lost_pets_list.idlost_pet }}</td>
+                <td>{{ lost_pets_list.lost_pet_name }}</td>
+                <td style="width: 37%"><img src="{{ MEDIA_URL }}{{ lost_pets_list.lost_petImagePath.url }}"
+                                            alt="{{ lost_pets_list.lost_pet_name }}" width="15%"></td>
+                <td>{{ lost_pets_list.lost_pet_status }}</td>
+                <td style="justify-content: space-between; display: table-cell; width: 10%; height: 100%;">
+                    <a href="{{ lost_pets_list.get_absolute_url }}">Посмотреть</a>
+                    <a href="{% url 'edit_lost_pets' lost_pets_list.idlost_pet %}"><span
+                            class="glyphicon glyphicon-pencil">Изменить</span></a>
+                    <a href="account/delete/lost_pets/{{ lost_pets_list.idlost_pet }}">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

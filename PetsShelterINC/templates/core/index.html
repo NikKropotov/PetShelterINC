@@ -23,33 +23,27 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="logo_container">
-                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}">
+                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}" alt="logo">
                 <a class="navbar-brand">NIK_RAYN INC</a>
             </div>
             <form class="d-flex">
                 <div class="nav" style="align-items: center; text-align: center">
                     <a class="nav-link" href="/pets">Животные</a>
                     <a class="nav-link" href="/map">Карта</a>
-                    {#                    <a class="nav-link" href="#">Объявления</a>#}
-                    <div class="nav-link poster" style="margin-bottom: 0">Объявления
-                        <div class="descr">
-                            <a class="nav-link" href="/found_pets">Найдено животное</a>
-                            <a class="nav-link" href="/admin">Потеряно животное</a>
-                        </div>
-                    </div>
+                    <a class="nav-link " href="/found_pets">Объявления</a>
                     <a class="nav-link" href="#">Помощь</a>
                     {% if user.is_authenticated %}
                         {% if user.is_superuser %}
-                            <div class="nav-link poster" style="margin-bottom: 0">Аккаунт: {{ user.username }}
+                            <div class="poster">
+                                <a class="enter-btn" href="/account">Аккаунт</a>
                                 <div class="descr">
                                     <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
                                     <a class="nav-link" href="/admin">Админинистрационная панель</a>
                                 </div>
                             </div>
-                            <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+
                         {% else %}
-                            <p class="nav-link" style="margin-bottom: 0">Аккаунт: {{ user.username }}</p>
-                            <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                            <a class="enter-btn" href="/account">Аккаунт</a>
                         {% endif %}
                     {% else %}
                         <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
@@ -61,7 +55,7 @@
     </nav>
 </div>
 
-<div class="main_container">
+<div class="main_container" style="padding: 10px 31px">
     <div class="banner_title">
         <h1 class="header_text">Помогать легко</h1>
         <h1 class="main_text">ЭТИМ </br> ХВОСТАТЫМ </br> НУЖНА ЛЮБОВЬ </br> И ЗАБОТА</h1>
@@ -75,7 +69,7 @@
             <p class="btn_after_text">Анкеты животных</p>
         </div>
     </div>
-    <div class="carousel_container">
+    <div class="carousel_container" style="width: 450px">
         <img src="{% static 'assets/img/Pic-3.png' %}" class="d-block" id="carousel_pic1" alt="0" width="530"
              height="565">
     </div>

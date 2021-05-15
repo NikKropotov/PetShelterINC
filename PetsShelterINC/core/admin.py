@@ -19,11 +19,6 @@ class AdminPets(admin.ModelAdmin):
     list_display = ('contact_name', 'contact_phone', 'contact_email')
 
 
-# @admin.register(PetsBreed)
-# class AdminPets(admin.ModelAdmin):
-#     list_display = ('idpet_breed', 'breed')
-
-
 @admin.register(Shelters)
 class AdminPets(admin.ModelAdmin):
     list_display = ('shelter_place', 'shelter_name', 'shelter_city')
@@ -36,7 +31,22 @@ class AdminPets(admin.ModelAdmin):
     list_editable = ('found_pet_status', 'found_pet_age')
     list_filter = ('found_pet_status', 'found_pet_gender', 'found_pet_found_datetime')
     search_fields = ('found_pet_name', 'found_pet_gender')
+    exclude = ('user_id',)
+
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.user_id = request.user
+        super().save_model(request, obj, form, change)
 
 
-admin.site.register(LostPets)
+@admin.register(LostPets)
+class AdminPets(admin.ModelAdmin):
+    list_display = (
+        'lost_pet_name', 'lost_pet_status', 'lost_pet_gender', 'lost_pet_age', 'lost_pet_lost_datetime')
+    list_editable = ('lost_pet_status', 'lost_pet_age')
+    list_filter = ('lost_pet_status', 'lost_pet_gender', 'lost_pet_lost_datetime')
+    search_fields = ('lost_pet_name', 'lost_pet_gender')
+    exclude = ('user_id',)
+
+
 admin.site.register(Events)

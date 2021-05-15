@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from django.utils.timezone import now
-from django.utils import timezone
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.urls import reverse
 
 
@@ -57,6 +57,12 @@ class PetsBreed(models.Model):
 
     def __str__(self):
         return self.breed
+
+
+def upload_location_pets(instance, filename):
+    file_path = 'Pets_images/{idpet}-{pet_name}/{pet_name}-{filename}'.format(
+        idpet=str(instance.idpet), pet_name=str(instance.pet_name), filename=filename)
+    return file_path
 
 
 # Таблица с животными.
@@ -121,8 +127,8 @@ class Pets(models.Model):
     pet_location = models.CharField('Место нахождения', max_length=45)
     contact_idcontact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     shelter_idshelter = models.ForeignKey(Shelters, on_delete=models.CASCADE)
-    pet_breed_idpet_breed = models.ForeignKey(PetsBreed, on_delete=models.CASCADE)
-    petImagePath = models.ImageField('Фото животного', upload_to='Pets_images')
+    # pet_breed_idpet_breed = models.ForeignKey(PetsBreed, on_delete=models.CASCADE)
+    petImagePath = models.ImageField('Фото животного', upload_to=upload_location_pets)
 
     def get_absolute_url(self):
         return reverse('pets_detail', kwargs={'idpet': self.idpet})
@@ -133,17 +139,23 @@ class Pets(models.Model):
         db_table = "pet"
 
 
+def upload_location_f_pets(instance, filename):
+    file_path = 'Found_Pets_images/{idfound_pet}-{found_pet_name}/{found_pet_name}-{filename}'.format(
+        idfound_pet=str(instance.idfound_pet), found_pet_name=str(instance.found_pet_name), filename=filename)
+    return file_path
+
+
 class FoundPets(models.Model):
     idfound_pet = models.AutoField('Id Найденного животного', primary_key=True)
-    found_pet_name = models.CharField('Кличка', max_length=45, default=None, blank=True)
+    found_pet_name = models.CharField('Кличка', max_length=45, default="Неизвестно", blank=True)
     Status = (
-        ('Найдена', 'Найдена'),
+        ('Найдено', 'Найдено'),
         ('Дома', 'Дома'),
     )
     found_pet_status = models.CharField('Статус животного', max_length=15, choices=Status, blank=True,
-                                        default="Найдена")
+                                        default="Найдено")
     found_pet_color = models.CharField('Цвет шерсти', max_length=45, default=None)
-    found_pet_breed = models.CharField('Порода', max_length=60, default=None, blank=True)
+    found_pet_breed = models.CharField('Порода', max_length=60, default="Неизвестно", blank=True)
     found_pet_age = models.CharField('Примерный возраст', max_length=25, default=None, blank=True)
     Gender = (
         ('Мужской', 'Мужской'),
@@ -164,7 +176,9 @@ class FoundPets(models.Model):
     found_contact_name = models.CharField('Имя', max_length=45, default=None)
     found_contact_phone = models.CharField('Номер телефона', max_length=20)
     found_contact_email = models.CharField('Email', max_length=45, blank=True, default=None)
-    found_petImagePath = models.ImageField('Фото животного', upload_to='Found_Pets_images')
+    found_petImagePath = models.ImageField('Фото животного', upload_to=upload_location_f_pets, blank=True,
+                                           default='none_image.jpg')
+    user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
 
     def get_absolute_url(self):
         return reverse('found_pets_detail', kwargs={'idfound_pet': self.idfound_pet})
@@ -175,13 +189,25 @@ class FoundPets(models.Model):
         db_table = "found_pet"
 
 
+# @receiver(post_delete, sender=FoundPets)
+# def submission_delete(sender, instance, **kwargs):
+#     instance.found_petImagePath.delete(False)
+
+
+def upload_location_l_pets(instance, filename):
+    file_path = 'Lost_Pets_images/{idlost_pet}-{lost_pet_name}/{lost_pet_name}-{filename}'.format(
+        idlost_pet=str(instance.idlost_pet), lost_pet_name=str(instance.lost_pet_name), filename=filename)
+    return file_path
+
+
 class LostPets(models.Model):
     idlost_pet = models.AutoField('Id Потерянного животного', primary_key=True)
     Status = (
-        ('Пропала', 'Пропала'),
+        ('Пропало', 'Пропало'),
         ('Дома', 'Дома'),
     )
-    lost_pet_status = models.CharField('Статус животного', max_length=15, choices=Status)
+    lost_pet_status = models.CharField('Статус животного', max_length=15, choices=Status, blank=True,
+                                       default="Пропало")
     lost_pet_name = models.CharField('Кличка', max_length=45, default=None)
     lost_pet_breed = models.CharField('Порода', max_length=60, default=None)
     Gender = (
@@ -204,7 +230,12 @@ class LostPets(models.Model):
     lost_contact_name = models.CharField('Имя', max_length=45, default=None)
     lost_contact_phone = models.CharField('Номер телефона', max_length=20)
     lost_contact_email = models.CharField('Email', max_length=45, blank=True, default=None)
-    lost_petImagePath = models.ImageField('Фото животного', upload_to='Lost_Pets_images')
+    lost_petImagePath = models.ImageField('Фото животного', upload_to=upload_location_l_pets, blank=True,
+                                          default='none_image.jpg')
+    user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
+
+    def get_absolute_url(self):
+        return reverse('lost_pets_detail', kwargs={'idlost_pet': self.idlost_pet})
 
     class Meta:
         verbose_name = 'Потерянные животные'

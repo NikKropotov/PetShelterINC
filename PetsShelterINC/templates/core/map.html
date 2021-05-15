@@ -57,11 +57,21 @@
                 <div class="nav" style="align-items: center; text-align: center">
                     <a class="nav-link" href="/">Главная</a>
                     <a class="nav-link" href="/pets">Животные</a>
-                    <a class="nav-link" href="#">Объявления</a>
+                    <a class="nav-link " href="/found_pets">Объявления</a>
                     <a class="nav-link" href="#">Помощь</a>
                     {% if user.is_authenticated %}
-                        <p class="nav-link" style="margin-bottom: 0">Аккаунт: {{ user.username }}</p>
-                        <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                       {% if user.is_superuser %}
+                            <div class="poster">
+                                <a class="enter-btn" href="/account">Аккаунт</a>
+                                <div class="descr">
+                                    <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
+                                    <a class="nav-link" href="/admin">Админинистрационная панель</a>
+                                </div>
+                            </div>
+
+                        {% else %}
+                            <a class="enter-btn" href="/account">Аккаунт</a>
+                        {% endif %}
                         </div>
                         </form>
                         </div>

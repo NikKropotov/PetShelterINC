@@ -35,55 +35,7 @@
                 ride: false
             });
         });
-
-        function PhoneCopy() {
-            let phoneText = document.getElementById("phone_o").value;
-            var fullLink = document.createElement('input');
-            document.body.appendChild(fullLink);
-            fullLink.value = phoneText;
-            fullLink.select();
-            document.execCommand("copy", false);
-            fullLink.remove();
-            alert("Телефон скопирован " + fullLink.value);
-        }
-
-        function EmailCopy() {
-            var emailText = document.getElementById("email_o").value;
-            var fullLink = document.createElement('input');
-            document.body.appendChild(fullLink);
-            fullLink.value = emailText;
-            fullLink.select();
-            document.execCommand("copy", false);
-            fullLink.remove();
-            alert("Email скопирован " + fullLink.value);
-        }
     </script>
-    <style>
-        .phone_btn:hover span {
-            display: none
-        }
-
-        .phone_btn:hover:after {
-            content: "{{pet_detail.contact_idcontact.contact_name}}  {{ pet_detail.contact_idcontact.contact_phone }}";
-        }
-
-        .phone_btn:active, .phone_btn:focus {
-            text-overflow: clip;
-            outline: none;
-        }
-
-        .email_btn:hover span {
-            display: none
-        }
-
-        .email_btn:hover:after {
-            content: "{{pet_detail.contact_idcontact.contact_name}}  {{ pet_detail.contact_idcontact.contact_email }}";
-        }
-
-        .email_btn:active, .email_btn:focus {
-            outline: none;
-        }
-    </style>
 </head>
 
 <body>
@@ -99,7 +51,6 @@
                     <a class="nav-link" href="/">Главная</a>
                     <a class="nav-link" href="/pets">Животные</a>
                     <a class="nav-link" href="/map">Карта</a>
-                    <a class="nav-link " href="/found_pets">Объявления</a>
                     <a class="nav-link" href="#">Помощь</a>
                     {% if user.is_superuser %}
                         <div class="poster">
@@ -123,13 +74,14 @@
     <div class="container" style="text-align: center">
         <div class="row">
             <div class="col">
-                <h6 class="pet_name_header">{{ pet_detail.pet_name }}</h6>
-                <img src="{{ MEDIA_URL }}{{ pet_detail.petImagePath.url }}"
-                     alt="{{ pet_detail.pet_name }}" style="border-radius: 35px; width: 430px; height: 430px;">
+                <h6 class="pet_name_header">{{ lost_pet_detail.lost_pet_name }}</h6>
+                <img src="{{ MEDIA_URL }}{{ lost_pet_detail.lost_petImagePath.url }}"
+                     alt="{{ lost_pet_detail.lost_pet_name }}"
+                     style="border-radius: 35px; width: 430px; height: 430px;">
             </div>
             <div class="col">
                 <h6 class="pet_name_header"
-                    style="opacity: 0; margin-left: 0; width: fit-content">{{ pet_detail.pet_name }}</h6>
+                    style="opacity: 0; margin-left: 0; width: fit-content">{{ lost_pet_detail.lost_pet_name }}</h6>
                 <div class="info_card">
                     <div class="container" style="justify-content: center; text-align: -webkit-center;">
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"
@@ -146,7 +98,7 @@
                                                 <div class="col info_header">Статус</div>
                                             </td>
                                             <td style="align-items: center; text-align: center; vertical-align: baseline;">
-                                                <div class="pet_status_badge pet_status_badge--class">{{ pet_detail.pet_status }}</div>
+                                                <div class="pet_status_badge pet_status_badge--class">{{ lost_pet_detail.lost_pet_status }}</div>
                                             </td>
                                         </tr>
                                         <tr style="line-height: 40px; vertical-align: middle;">
@@ -154,7 +106,7 @@
                                                 <div class="col info_header">Пол</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_gender }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_pet_gender }}</div>
                                             </td>
                                         </tr>
                                         <tr style="line-height: 50px; vertical-align: middle;">
@@ -162,83 +114,84 @@
                                                 <div class="col info_header">Возраст</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_age }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_pet_age }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="white-space: pre-line; vertical-align: middle;">
+                                            <td>
+                                                <div class="col info_header">Порода</div>
+                                            </td>
+                                            <td>
+                                                <div class="col">{{ lost_pet_detail.lost_pet_breed }}</div>
                                             </td>
                                         </tr>
                                         <tr style="line-height: 50px; vertical-align: middle;">
                                             <td>
-                                                <div class="col info_header">Вакцинация</div>
+                                                <div class="col info_header">Цвет</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_vaccination }}</div>
-                                            </td>
-                                        </tr>
-                                        <tr style="line-height: 50px; vertical-align: middle;">
-                                            <td>
-                                                <div class="col info_header">Стерилизация</div>
-                                            </td>
-                                            <td>
-                                                <div class="col">{{ pet_detail.pet_sterilization }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_pet_color }}</div>
                                             </td>
                                         </tr>
                                         <tr style="line-height: 50px; vertical-align: middle;">
-                                            <td>
-                                                <div class="col info_header">Темперамент</div>
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Размер</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_temperament }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_pet_size }}</div>
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div class="carousel-item">
                                     <table style="margin-top: 15px">
-                                        <tr style="white-space: pre-line; vertical-align: middle;">
+
+                                        <tr style="line-height: 50px; vertical-align: middle;">
                                             <td style="padding-left: 7px;">
-                                                <div class="col info_header">Порода</div>
+                                                <div class="col info_header">Дата и время</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_breed }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_pet_lost_datetime }}</div>
                                             </td>
                                         </tr>
                                         <tr style="line-height: 50px; vertical-align: middle;">
                                             <td style="padding-left: 7px;">
-                                                <div class="col info_header">Длина шерсти</div>
+                                                <div class="col info_header">Город</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_wool_length }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_pet_lost_location }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr style="line-height: 50px; vertical-align: middle; margin-top: 5px">
+                                            <td style="padding-left: 7px;">
+                                                <div class="col info_header">Контакты</div>
+                                            </td>
+                                            <td>
+                                                <div class="col"></div>
                                             </td>
                                         </tr>
                                         <tr style="line-height: 50px; vertical-align: middle;">
                                             <td style="padding-left: 7px;">
-                                                <div class="col info_header">Цвет</div>
+                                                <div class="col info_header">Имя</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_wool_color }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_contact_name }}</div>
                                             </td>
                                         </tr>
                                         <tr style="line-height: 50px; vertical-align: middle;">
                                             <td style="padding-left: 7px;">
-                                                <div class="col info_header">Вес (кг)</div>
+                                                <div class="col info_header">Телефон</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_weight }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_contact_phone }}</div>
                                             </td>
                                         </tr>
                                         <tr style="line-height: 50px; vertical-align: middle;">
                                             <td style="padding-left: 7px;">
-                                                <div class="col info_header">Здоровье</div>
+                                                <div class="col info_header">Почта</div>
                                             </td>
                                             <td>
-                                                <div class="col">{{ pet_detail.pet_health }}</div>
-                                            </td>
-                                        </tr>
-                                        <tr style="line-height: 50px; vertical-align: middle;">
-                                            <td style="padding-left: 7px;">
-                                                <div class="col info_header">Особенности</div>
-                                            </td>
-                                            <td>
-                                                <div class="col">{{ pet_detail.pet_privicies }}</div>
+                                                <div class="col">{{ lost_pet_detail.lost_contact_email }}</div>
                                             </td>
                                         </tr>
                                     </table>
@@ -259,98 +212,10 @@
                 </div>
             </div>
         </div>
-
         <div class="more_info_card" style="text-align: start; padding: 40px;">
-            <div class="row" style="align-items: stretch;">
-                <div class="col">
-                    <div class="col info_header">Размер</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_size }}</div>
-                </div>
-                <div class="col">
-                    <div class="col info_header">C людьми</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_human_centred }}</div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 20px; align-items: stretch;">
-                <div class="col">
-                    <div class="col info_header">Тип</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_type }}</div>
-                </div>
-                <div class="col">
-                    <div class="col info_header">С детьми</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_attitude_children }}</div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 20px; align-items: stretch;">
-                <div class="col">
-                    <div class="col info_header">Содержание</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_keeping }}</div>
-                </div>
-                <div class="col">
-                    <div class="col info_header">С котами</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_attitude_cat }}</div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 20px; align-items: stretch;">
-                <div class="col">
-                    <div class="col info_header">Приучен(-a) к жизни в квартире</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_live_in_apartment }}</div>
-                </div>
-                <div class="col">
-                    <div class="col info_header">С другими животными</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_attitude_other_pets }}</div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 20px; align-items: stretch;">
-                <div class="col">
-                    <div class="col info_header">Приучен(-a) к поводку</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_accustomed_to_a_leash }}</div>
-                </div>
-                <div class="col">
-                    <div class="col info_header">Дрессируем(-a)</div>
-                </div>
-                <div class="col">
-                    <div class="col">{{ pet_detail.pet_training }}</div>
-                </div>
-            </div>
-        </div>
-        <div class="more_info_card" style="text-align: start; padding: 40px;">
-            <div class="row" style="justify-content: space-around;">
-                <button class="phone_btn" id="phone_btn" onclick="PhoneCopy()"
-                        value="{{ pet_detail.contact_idcontact.contact_phone }}">
-                    <img src="{% static 'assets/icons/phone.svg' %}"
-                         style="vertical-align: text-top;" alt="phone">
-                    ПОЗВОНИТЬ
-                </button>
-                <input id="phone_o" value="{{ pet_detail.contact_idcontact.contact_phone }}"
-                       type="hidden">
-                <button class="email_btn" onclick="EmailCopy()" id="email_btn"
-                        style="overflow: hidden; text-overflow: clip"
-                        value="{{ pet_detail.contact_idcontact.contact_email }}">
-                    <img src="{% static 'assets/icons/mail.svg' %}"
-                         style="vertical-align: text-top;" alt="email">
-                    НАПИСАТЬ
-                </button>
-                <input id="email_o" value="{{ pet_detail.contact_idcontact.contact_email }}"
-                       type="hidden">
+            <div class="info_header">Описание</div>
+            <div>
+                {{ lost_pet_detail.lost_pet_description }}
             </div>
         </div>
     </div>

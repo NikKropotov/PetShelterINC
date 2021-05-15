@@ -1,0 +1,17 @@
+{% for lost_pets_list in lost_pets %}
+    <a class="card-link" href="{{ lost_pets_list.get_absolute_url }}"
+       style="margin-left: 0;">
+        <div class="card" style="border-radius: 9px;">
+            <div class="card__badges">
+                <div class="card__badge card__badge--class">{{ lost_pets_list.lost_pet_status }}</div>
+            </div>
+            <div class="card__img" style="    border-radius: 9px;">
+                <img src="{{ MEDIA_URL }}{{ lost_pets_list.lost_petImagePath.url }}"
+                     alt="{{ lost_pets_list.lost_pet_name }}">
+            </div>
+            <div class="card__content">
+                <h4 class="card__title">{{ lost_pets_list.lost_pet_name }}</h4>
+            </div>
+        </div>
+    </a>
+{% endfor %}

@@ -36,32 +36,6 @@
             });
         });
     </script>
-    <style>
-        .poster {
-            position: relative;
-        }
-
-        .descr {
-            display: none;
-            margin-left: -60px;
-            padding: 10px;
-            margin-top: 15px;
-            background: #f3f3f3;
-            height: fit-content;
-            -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-            -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .poster:hover .descr {
-            display: block;
-            position: absolute;
-            top: 15px;
-            z-index: 9999;
-            width: max-content;
-            border-radius: 5px;
-        }
-    </style>
 </head>
 
 <body>
@@ -74,17 +48,22 @@
             </div>
             <form class="d-flex">
                 <div class="nav" style="align-items: center; text-align: center">
+                    <a class="nav-link" href="/">Главная</a>
                     <a class="nav-link" href="/pets">Животные</a>
                     <a class="nav-link" href="/map">Карта</a>
-                    <div class="nav-link poster" style="margin-bottom: 0">Объявления
-                        <div class="descr">
-                            <a class="nav-link" href="/found_pets">Найдено животное</a>
-                            <a class="nav-link" href="/admin">Потеряно животное</a>
-                        </div>
-                    </div>
                     <a class="nav-link" href="#">Помощь</a>
-                    <p class="nav-link" style="margin-bottom: 0px">Аккаунт: {{ user.username }}</p>
-                    <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                    {% if user.is_superuser %}
+                        <div class="poster">
+                            <a class="enter-btn" href="/account">Аккаунт</a>
+                            <div class="descr">
+                                <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
+                                <a class="nav-link" href="/admin">Админинистрационная панель</a>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <a class="enter-btn" href="/account">Аккаунт</a>
+                    {% endif %}
                 </div>
             </form>
         </div>

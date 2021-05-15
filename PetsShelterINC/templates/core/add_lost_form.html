@@ -65,15 +65,15 @@
         {% csrf_token %}
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Найдено животное</h5>
-                <a type="button" class="close" href="{% url 'found_pets_list' %}">
+                <h5 class="modal-title" id="staticBackdropLabel">Пропало животное</h5>
+                <a type="button" class="close" href="{% url 'lost_pets_list' %}">
                     <span aria-hidden="true">&times;</span>
                 </a>
             </div>
             <div class="modal-body">
                 {{ form.as_p }}
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-secondary" href="{% url 'found_pets_list' %}">
+                    <a type="button" class="btn btn-secondary" href="{% url 'lost_pets_list' %}">
                         Закрыть
                     </a>
                     <button type="submit" class="btn btn-primary" id="create_pet">Оправить

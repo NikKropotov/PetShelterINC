@@ -38,11 +38,21 @@
                 <div class="nav" style="align-items: center; text-align: center">
                     <a class="nav-link" href="/">Главная</a>
                     <a class="nav-link" href="/map">Карта</a>
-                    <a class="nav-link" href="#">Объявления</a>
+                    <a class="nav-link " href="/found_pets">Объявления</a>
                     <a class="nav-link" href="#">Помощь</a>
                     {% if user.is_authenticated %}
-                        <p class="nav-link" style="margin-bottom: 0">Аккаунт: {{ user.username }}</p>
-                        <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
+                        {% if user.is_superuser %}
+                            <div class="poster">
+                                <a class="enter-btn" href="/account">Аккаунт</a>
+                                <div class="descr">
+                                    <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
+                                    <a class="nav-link" href="/admin">Админинистрационная панель</a>
+                                </div>
+                            </div>
+
+                        {% else %}
+                            <a class="enter-btn" href="/account">Аккаунт</a>
+                        {% endif %}
                         </div>
                         </form>
                         </div>
@@ -91,8 +101,8 @@
                                             {% for breeds in view.get_pets_breeds %}
                                                 <li>
                                                     <input type="checkbox" name="breeds"
-                                                           value="{{ breeds.idpet_breed }}">
-                                                    <span>{{ breeds.breed }}</span>
+                                                           value="{{ breeds.pet_breed }}">
+                                                    <span>{{ breeds.pet_breed }}</span>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -102,11 +112,11 @@
                                 <div id="age_filter" class="collapse">
                                     <div class="card card-body filter" style="margin-left: 360px;">
                                         <ul style="list-style: none">
-                                            {% for genders in view.get_pets_genders %}
+                                            {% for ages in view.get_pets_ages %}
                                                 <li>
-                                                    <input type="radio" name="genders"
-                                                           value="{{ genders.pet_gender }}">
-                                                    <span>{{ genders.pet_gender }}</span>
+                                                    <input type="checkbox" name="ages"
+                                                           value="{{ ages.pet_age }}">
+                                                    <span>{{ ages.pet_age }}</span>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -114,7 +124,8 @@
                                 </div>
 
                                 <div id="gender_filter" class="collapse">
-                                    <div class="card card-body filter" style="margin-left: 550px;" id="gen_f">
+                                    <div class="card card-body filter" style="margin-left: 550px; text-align: center"
+                                         id="gen_f">
                                         <ul style="list-style: none; display: flex; padding: 0; margin-bottom: 0; justify-content: space-around;">
                                             {% for genders in view.get_pets_genders %}
                                                 <label class="container">{{ genders.pet_gender }}
@@ -175,7 +186,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="row" style="margin-top: 15px">
+                                        <div class="row" style="margin-top: 15px; align-items: flex-start">
                                             <div class="col">
                                                 <ul style="list-style: none;padding: 0; margin-bottom: 0; justify-content: space-around;">
                                                     <h6>Длина шерсти</h6>
@@ -334,9 +345,9 @@
                                                     <div class="card__badges">
                                                         <div class="card__badge card__badge--class">{{ pets_list.pet_status }}</div>
                                                     </div>
-                                                    <div class="card__img" style="    border-radius: 9px;">
+                                                    <div class="card__img" style="border-radius: 9px;">
                                                         <img src="{{ MEDIA_URL }}{{ pets_list.petImagePath.url }}"
-                                                             alt="{{ pets_list.pet_name }}">
+                                                             alt="{{ pets_list.pet_name }}" width="100%">
                                                     </div>
                                                     <div class="card__content">
                                                         <h4 class="card__title">{{ pets_list.pet_name }}</h4>

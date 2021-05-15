@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load crispy_forms_filters %}
 {% load static %}
 <html lang="en">
 
@@ -30,6 +31,7 @@
     <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
 </head>
 <body>
+
 <div class="header" id="header">
     <nav class="navbar">
         <div class="container-fluid">
@@ -42,50 +44,59 @@
                     <a class="nav-link" href="/">Главная</a>
                     <a class="nav-link" href="/pets">Животные</a>
                     <a class="nav-link" href="/map">Карта</a>
+                    <a class="nav-link " href="/found_pets">Объявления</a>
                     <a class="nav-link" href="#">Помощь</a>
-                    {% if user.is_superuser %}
-                        <div class="poster">
-                            <a class="enter-btn" href="/account">Аккаунт</a>
-                            <div class="descr">
-                                <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
-                                <a class="nav-link" href="/admin">Админинистрационная панель</a>
-                            </div>
-                        </div>
-
-                    {% else %}
-                        <a class="enter-btn" href="/account">Аккаунт</a>
-                    {% endif %}
+                    <a class="enter-btn" href="/account">Аккаунт</a>
                 </div>
             </form>
         </div>
     </nav>
 </div>
+
 <div class="main_container">
-    <form method="post" enctype="multipart/form-data" action="">
-        {% csrf_token %}
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Найдено животное</h5>
-                <a type="button" class="close" href="{% url 'found_pets_list' %}">
-                    <span aria-hidden="true">&times;</span>
-                </a>
-            </div>
-            <div class="modal-body">
-                {{ form.as_p }}
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Изменение объявления о нахождении -
+                {% if success_message %}
+                    {{ success_message }}
+                {% endif %}
+            </h5>
+            <a type="button" class="close" href="{% url 'account' %}">
+                <span aria-hidden="true">&times;</span>
+            </a>
+        </div>
+
+        <div class="modal-body">
+
+            <form method="post" enctype="multipart/form-data" class="post-form"
+                  action="">
+                {% csrf_token %}
+                {{ form }}
+
+                {% for field in form %}
+                    <p>
+                        {% for error in field.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </p>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    <div style="color: red">
+                        <p>{{ form.non_field_errors }}</p>
+                    </div>
+                {% endif %}
+
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-secondary" href="{% url 'found_pets_list' %}">
+                    <a type="button" class="btn btn-secondary" href="{% url 'account' %}">
                         Закрыть
                     </a>
-                    <button type="submit" class="btn btn-primary" id="create_pet">Оправить
+                    <button type="submit" class="btn btn-primary" id="create_pet">Обновить
                     </button>
                 </div>
-
-            </div>
+            </form>
         </div>
-    </form>
-
+    </div>
 </div>
-
 </body>
 
 </html>

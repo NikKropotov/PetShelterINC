@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'bootstrap_modal_forms',
+    'crispy_forms',
+    'jquery',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

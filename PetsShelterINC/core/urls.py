@@ -23,6 +23,8 @@ urlpatterns = [
     path('found_pets', views.FoundPetsListView.as_view(), name='found_pets_list'),
     path('found_pets/add', views.add_found_pet, name='add_found_pets'),
 
+    # path('create_found/', views.AddFoundPet2View.as_view(), name='add_found_pets_2'),
+
     path('lost_pets', views.LostPetsListView.as_view(), name='lost_pets_list'),
     path('lost_pets/add', views.add_lost_pet, name='add_lost_pets'),
 

@@ -1,0 +1,555 @@
+-- MySQL dump 10.13  Distrib 5.6.47, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: petsshelter2
+-- ------------------------------------------------------
+-- Server version	5.6.47-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `auth_group`
+--
+
+DROP TABLE IF EXISTS `auth_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group`
+--
+
+LOCK TABLES `auth_group` WRITE;
+/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_group_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group_permissions`
+--
+
+LOCK TABLES `auth_group_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_permission`
+--
+
+DROP TABLE IF EXISTS `auth_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
+  CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+LOCK TABLES `auth_permission` WRITE;
+/*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
+INSERT INTO `auth_permission` VALUES (1,'Can add Контакты',1,'add_contact'),(2,'Can change Контакты',1,'change_contact'),(3,'Can delete Контакты',1,'delete_contact'),(4,'Can view Контакты',1,'view_contact'),(5,'Can add Мероприятия',2,'add_events'),(6,'Can change Мероприятия',2,'change_events'),(7,'Can delete Мероприятия',2,'delete_events'),(8,'Can view Мероприятия',2,'view_events'),(9,'Can add Найденные животные',3,'add_foundpets'),(10,'Can change Найденные животные',3,'change_foundpets'),(11,'Can delete Найденные животные',3,'delete_foundpets'),(12,'Can view Найденные животные',3,'view_foundpets'),(13,'Can add Потерянные животные',4,'add_lostpets'),(14,'Can change Потерянные животные',4,'change_lostpets'),(15,'Can delete Потерянные животные',4,'delete_lostpets'),(16,'Can view Потерянные животные',4,'view_lostpets'),(17,'Can add Породы животных',5,'add_petsbreed'),(18,'Can change Породы животных',5,'change_petsbreed'),(19,'Can delete Породы животных',5,'delete_petsbreed'),(20,'Can view Породы животных',5,'view_petsbreed'),(21,'Can add Приюты',6,'add_shelters'),(22,'Can change Приюты',6,'change_shelters'),(23,'Can delete Приюты',6,'delete_shelters'),(24,'Can view Приюты',6,'view_shelters'),(25,'Can add Животные',7,'add_pets'),(26,'Can change Животные',7,'change_pets'),(27,'Can delete Животные',7,'delete_pets'),(28,'Can view Животные',7,'view_pets'),(29,'Can add log entry',8,'add_logentry'),(30,'Can change log entry',8,'change_logentry'),(31,'Can delete log entry',8,'delete_logentry'),(32,'Can view log entry',8,'view_logentry'),(33,'Can add permission',9,'add_permission'),(34,'Can change permission',9,'change_permission'),(35,'Can delete permission',9,'delete_permission'),(36,'Can view permission',9,'view_permission'),(37,'Can add group',10,'add_group'),(38,'Can change group',10,'change_group'),(39,'Can delete group',10,'delete_group'),(40,'Can view group',10,'view_group'),(41,'Can add user',11,'add_user'),(42,'Can change user',11,'change_user'),(43,'Can delete user',11,'delete_user'),(44,'Can view user',11,'view_user'),(45,'Can add content type',12,'add_contenttype'),(46,'Can change content type',12,'change_contenttype'),(47,'Can delete content type',12,'delete_contenttype'),(48,'Can view content type',12,'view_contenttype'),(49,'Can add session',13,'add_session'),(50,'Can change session',13,'change_session'),(51,'Can delete session',13,'delete_session'),(52,'Can view session',13,'view_session');
+/*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user`
+--
+
+DROP TABLE IF EXISTS `auth_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime(6) DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `first_name` varchar(150) NOT NULL,
+  `last_name` varchar(150) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+LOCK TABLES `auth_user` WRITE;
+/*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$216000$kLQhhzTvf9Ob$owPeRk71Y7emonYAG/L0Ls7adxjXdyJetybqerilfQs=','2021-05-15 14:52:16.688805',1,'nikita','','','nikitakropotov7@gmail.com',1,1,'2021-05-02 19:34:23.077558'),(2,'pbkdf2_sha256$216000$IWqZqKC631cD$aYuf79hu4Oh1M/NOjjct/x/FVeTMfFc7GOy1F67c0/o=','2021-05-14 19:33:55.358954',0,'nikita277','','','',0,1,'2021-05-02 20:01:43.558588');
+/*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+DROP TABLE IF EXISTS `auth_user_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),
+  KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`),
+  CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_groups`
+--
+
+LOCK TABLES `auth_user_groups` WRITE;
+/*!40000 ALTER TABLE `auth_user_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_user_user_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user_user_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),
+  KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`),
+  CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_user_permissions`
+--
+
+LOCK TABLES `auth_user_user_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_user_user_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_user_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contact`
+--
+
+DROP TABLE IF EXISTS `contact`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contact` (
+  `idcontact` int(11) NOT NULL AUTO_INCREMENT,
+  `contact_name` varchar(45) NOT NULL,
+  `contact_phone` varchar(20) NOT NULL,
+  `contact_email` varchar(45) NOT NULL,
+  `contact_two_name` varchar(45) NOT NULL,
+  `contact_two_phone` varchar(20) NOT NULL,
+  PRIMARY KEY (`idcontact`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contact`
+--
+
+LOCK TABLES `contact` WRITE;
+/*!40000 ALTER TABLE `contact` DISABLE KEYS */;
+INSERT INTO `contact` VALUES (1,'Ирина','+7-915-068-58-83','fedyunina.irina@gmail.com','Ирина','+7-918-347-34-39'),(2,'Евгения','+7-985-781-15-63','mila.samohina@yandex.ru','',''),(3,'Марина','+7-903-173-80-73','fieram@mail.ru','',''),(4,'Наталья','+7-926-878-68-79','drugforever@yandex.ru','',''),(5,'Жанна','+7-977-970-18-48','info@sundogshelter.ru','',''),(6,'Марина','+7-925-792-45-10','ordo.05@mail.ru','','');
+/*!40000 ALTER TABLE `contact` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+DROP TABLE IF EXISTS `django_admin_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime(6) NOT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) unsigned NOT NULL,
+  `change_message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+  KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`),
+  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+LOCK TABLES `django_admin_log` WRITE;
+/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+INSERT INTO `django_admin_log` VALUES (1,'2021-05-02 19:39:48.609927','1','Contact object (1)',1,'[{\"added\": {}}]',1,1),(2,'2021-05-02 19:42:00.832854','2','Contact object (2)',1,'[{\"added\": {}}]',1,1),(3,'2021-05-02 19:44:03.730791','2','Contact object (2)',2,'[]',1,1),(4,'2021-05-02 19:45:47.470718','3','Contact object (3)',1,'[{\"added\": {}}]',1,1),(5,'2021-05-02 19:47:12.601246','4','Contact object (4)',1,'[{\"added\": {}}]',1,1),(6,'2021-05-02 19:47:28.654509','5','Contact object (5)',1,'[{\"added\": {}}]',1,1),(7,'2021-05-12 12:21:46.922373','1','FoundPets object (1)',1,'[{\"added\": {}}]',3,1),(8,'2021-05-12 12:26:03.214243','1','FoundPets object (1)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(9,'2021-05-12 12:44:01.394425','1','FoundPets object (1)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(10,'2021-05-12 12:55:26.740440','1','FoundPets object (1)',2,'[{\"changed\": {\"fields\": [\"\\u041f\\u043e\\u0440\\u043e\\u0434\\u0430\"]}}]',3,1),(11,'2021-05-12 12:58:33.506245','2','FoundPets object (2)',1,'[{\"added\": {}}]',3,1),(12,'2021-05-12 13:01:14.191771','3','FoundPets object (3)',1,'[{\"added\": {}}]',3,1),(13,'2021-05-12 13:03:15.282330','4','FoundPets object (4)',1,'[{\"added\": {}}]',3,1),(14,'2021-05-12 13:04:47.551261','5','FoundPets object (5)',1,'[{\"added\": {}}]',3,1),(15,'2021-05-12 13:07:22.644230','6','FoundPets object (6)',1,'[{\"added\": {}}]',3,1),(16,'2021-05-13 14:57:01.519136','7','FoundPets object (7)',1,'[{\"added\": {}}]',3,1),(17,'2021-05-13 19:56:23.141048','9','FoundPets object (9)',3,'',3,1),(18,'2021-05-13 19:56:23.150943','8','FoundPets object (8)',3,'',3,1),(19,'2021-05-13 19:58:28.473111','16','FoundPets object (16)',3,'',3,1),(20,'2021-05-13 19:58:28.480403','15','FoundPets object (15)',3,'',3,1),(21,'2021-05-13 19:58:28.484370','14','FoundPets object (14)',3,'',3,1),(22,'2021-05-13 19:58:28.487802','13','FoundPets object (13)',3,'',3,1),(23,'2021-05-13 19:58:28.490891','12','FoundPets object (12)',3,'',3,1),(24,'2021-05-13 19:58:28.497425','11','FoundPets object (11)',3,'',3,1),(25,'2021-05-13 19:58:28.500750','10','FoundPets object (10)',3,'',3,1),(26,'2021-05-13 21:33:11.729889','18','FoundPets object (18)',3,'',3,1),(27,'2021-05-14 13:08:17.120591','27','FoundPets object (27)',3,'',3,1),(28,'2021-05-14 13:08:17.129362','26','FoundPets object (26)',3,'',3,1),(29,'2021-05-14 13:08:17.134786','25','FoundPets object (25)',3,'',3,1),(30,'2021-05-14 13:08:17.139573','24','FoundPets object (24)',3,'',3,1),(31,'2021-05-14 13:08:17.145701','23','FoundPets object (23)',3,'',3,1),(32,'2021-05-14 13:08:17.154531','22','FoundPets object (22)',3,'',3,1),(33,'2021-05-14 13:08:17.160510','21','FoundPets object (21)',3,'',3,1),(34,'2021-05-14 13:08:17.165459','20','FoundPets object (20)',3,'',3,1),(35,'2021-05-14 13:08:17.171249','19','FoundPets object (19)',3,'',3,1),(36,'2021-05-14 13:08:26.178163','18','FoundPets object (18)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(37,'2021-05-14 13:23:07.276922','28','FoundPets object (28)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(38,'2021-05-14 13:24:42.467258','28','FoundPets object (28)',3,'',3,1),(39,'2021-05-14 13:24:42.474154','18','FoundPets object (18)',3,'',3,1),(40,'2021-05-14 13:24:42.478201','17','FoundPets object (17)',3,'',3,1),(41,'2021-05-14 13:30:42.232985','31','FoundPets object (31)',3,'',3,1),(42,'2021-05-14 13:30:42.239594','30','FoundPets object (30)',3,'',3,1),(43,'2021-05-14 13:44:18.518459','33','FoundPets object (33)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(44,'2021-05-14 13:46:12.295244','32','FoundPets object (32)',3,'',3,1),(45,'2021-05-14 13:46:12.300906','29','FoundPets object (29)',3,'',3,1),(46,'2021-05-14 13:57:11.959282','34','FoundPets object (34)',3,'',3,1),(47,'2021-05-14 13:57:11.970038','33','FoundPets object (33)',3,'',3,1),(48,'2021-05-14 14:32:49.688936','42','FoundPets object (42)',3,'',3,1),(49,'2021-05-14 14:32:49.696932','41','FoundPets object (41)',3,'',3,1),(50,'2021-05-14 14:32:49.700845','40','FoundPets object (40)',3,'',3,1),(51,'2021-05-14 14:32:49.703828','39','FoundPets object (39)',3,'',3,1),(52,'2021-05-14 14:32:49.707401','38','FoundPets object (38)',3,'',3,1),(53,'2021-05-14 14:32:49.710940','37','FoundPets object (37)',3,'',3,1),(54,'2021-05-14 14:32:49.714943','36','FoundPets object (36)',3,'',3,1),(55,'2021-05-14 15:17:21.917097','44','FoundPets object (44)',3,'',3,1),(56,'2021-05-14 15:17:21.923149','43','FoundPets object (43)',3,'',3,1),(57,'2021-05-14 15:18:00.374871','45','FoundPets object (45)',3,'',3,1),(58,'2021-05-14 15:19:04.027303','35','FoundPets object (35)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(59,'2021-05-14 15:28:17.729790','47','FoundPets object (47)',3,'',3,1),(60,'2021-05-14 15:28:17.732450','46','FoundPets object (46)',3,'',3,1),(61,'2021-05-14 15:43:40.623252','48','FoundPets object (48)',3,'',3,1),(62,'2021-05-14 15:56:00.706579','49','FoundPets object (49)',3,'',3,1),(63,'2021-05-14 16:34:56.736623','35','FoundPets object (35)',3,'',3,1),(64,'2021-05-14 18:32:51.164284','4','FoundPets object (4)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(65,'2021-05-14 18:34:55.962310','7','FoundPets object (7)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(66,'2021-05-14 18:37:51.480336','4','FoundPets object (4)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(67,'2021-05-14 18:49:35.341531','1','LostPets object (1)',1,'[{\"added\": {}}]',4,1),(68,'2021-05-14 18:53:17.315536','2','LostPets object (2)',1,'[{\"added\": {}}]',4,1),(69,'2021-05-14 18:54:52.535488','3','LostPets object (3)',1,'[{\"added\": {}}]',4,1),(70,'2021-05-14 18:55:24.802660','2','LostPets object (2)',2,'[{\"changed\": {\"fields\": [\"\\u041f\\u043e\\u043b\"]}}]',4,1),(71,'2021-05-14 18:56:45.864042','4','LostPets object (4)',1,'[{\"added\": {}}]',4,1),(72,'2021-05-14 18:58:02.634847','5','LostPets object (5)',1,'[{\"added\": {}}]',4,1),(73,'2021-05-14 19:03:33.702687','4','LostPets object (4)',2,'[{\"changed\": {\"fields\": [\"\\u041c\\u0435\\u0441\\u0442\\u043e \\u043f\\u043e\\u0442\\u0435\\u0440\\u0438\"]}}]',4,1),(74,'2021-05-14 19:04:15.539130','4','LostPets object (4)',2,'[{\"changed\": {\"fields\": [\"\\u041c\\u0435\\u0441\\u0442\\u043e \\u043f\\u043e\\u0442\\u0435\\u0440\\u0438\"]}}]',4,1),(75,'2021-05-14 19:08:44.201343','6','LostPets object (6)',1,'[{\"added\": {}}]',4,1),(76,'2021-05-14 19:09:56.000331','7','LostPets object (7)',1,'[{\"added\": {}}]',4,1),(77,'2021-05-14 19:10:27.815150','6','LostPets object (6)',2,'[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]',4,1),(78,'2021-05-14 20:13:34.529270','8','LostPets object (8)',3,'',4,1),(79,'2021-05-14 20:14:11.621182','9','LostPets object (9)',3,'',4,1),(80,'2021-05-14 21:14:34.095799','7','FoundPets object (7)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',3,1),(81,'2021-05-14 21:14:38.236739','6','FoundPets object (6)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',3,1),(82,'2021-05-14 21:14:43.226686','5','FoundPets object (5)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',3,1),(83,'2021-05-14 21:14:47.269050','4','FoundPets object (4)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',3,1),(84,'2021-05-14 21:14:51.527495','3','FoundPets object (3)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',3,1),(85,'2021-05-14 21:14:55.590786','1','FoundPets object (1)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',3,1),(86,'2021-05-14 21:41:50.423404','7','LostPets object (7)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',4,1),(87,'2021-05-14 21:41:54.651395','6','LostPets object (6)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',4,1),(88,'2021-05-14 21:42:00.262099','5','LostPets object (5)',2,'[{\"changed\": {\"fields\": [\"User id\"]}}]',4,1),(89,'2021-05-15 12:05:26.898495','9','FoundPets object (9)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\", \"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(90,'2021-05-15 13:03:59.795652','10','FoundPets object (10)',2,'[{\"changed\": {\"fields\": [\"\\u0420\\u0430\\u0437\\u043c\\u0435\\u0440\"]}}]',3,1),(91,'2021-05-15 14:02:49.547555','6','Марина',1,'[{\"added\": {}}]',1,1),(92,'2021-05-15 14:03:15.640313','7','Pets object (7)',1,'[{\"added\": {}}]',7,1),(93,'2021-05-15 14:07:53.276687','7','Pets object (7)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',7,1),(94,'2021-05-15 14:08:33.141676','7','Pets object (7)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',7,1),(95,'2021-05-15 14:09:37.071338','1','Pets object (1)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',7,1),(96,'2021-05-15 14:09:49.127266','2','Pets object (2)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',7,1),(97,'2021-05-15 14:09:59.879411','3','Pets object (3)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',7,1),(98,'2021-05-15 14:10:12.401897','4','Pets object (4)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',7,1),(99,'2021-05-15 14:10:23.699379','5','Pets object (5)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',7,1),(100,'2021-05-15 14:10:33.502903','6','Pets object (6)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',7,1),(101,'2021-05-15 14:13:24.046640','1','FoundPets object (1)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\", \"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(102,'2021-05-15 14:13:39.491071','2','FoundPets object (2)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\", \"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(103,'2021-05-15 14:13:50.652925','3','FoundPets object (3)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\", \"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(104,'2021-05-15 14:14:03.150039','4','FoundPets object (4)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\", \"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(105,'2021-05-15 14:14:13.892474','5','FoundPets object (5)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\", \"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(106,'2021-05-15 14:14:24.877996','6','FoundPets object (6)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\", \"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(107,'2021-05-15 14:14:33.486599','7','FoundPets object (7)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\", \"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(108,'2021-05-15 14:14:41.521788','10','FoundPets object (10)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(109,'2021-05-15 14:15:45.814140','1','LostPets object (1)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',4,1),(110,'2021-05-15 14:16:07.080152','2','LostPets object (2)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',4,1),(111,'2021-05-15 14:16:15.549469','3','LostPets object (3)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',4,1),(112,'2021-05-15 14:16:25.218756','4','LostPets object (4)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',4,1),(113,'2021-05-15 14:16:33.980360','5','LostPets object (5)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',4,1),(114,'2021-05-15 14:16:42.043102','6','LostPets object (6)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',4,1),(115,'2021-05-15 14:16:50.476775','7','LostPets object (7)',2,'[{\"changed\": {\"fields\": [\"\\u0424\\u043e\\u0442\\u043e \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',4,1),(116,'2021-05-15 14:18:39.355042','3','FoundPets object (3)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(117,'2021-05-15 14:18:51.324540','7','FoundPets object (7)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(118,'2021-05-15 14:18:51.334498','6','FoundPets object (6)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(119,'2021-05-15 14:18:51.344035','5','FoundPets object (5)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(120,'2021-05-15 14:18:51.353448','4','FoundPets object (4)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(121,'2021-05-15 14:18:51.363561','2','FoundPets object (2)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1),(122,'2021-05-15 14:18:51.373340','1','FoundPets object (1)',2,'[{\"changed\": {\"fields\": [\"\\u0421\\u0442\\u0430\\u0442\\u0443\\u0441 \\u0436\\u0438\\u0432\\u043e\\u0442\\u043d\\u043e\\u0433\\u043e\"]}}]',3,1);
+/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_content_type`
+--
+
+DROP TABLE IF EXISTS `django_content_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+LOCK TABLES `django_content_type` WRITE;
+/*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
+INSERT INTO `django_content_type` VALUES (8,'admin','logentry'),(10,'auth','group'),(9,'auth','permission'),(11,'auth','user'),(12,'contenttypes','contenttype'),(1,'core','contact'),(2,'core','events'),(3,'core','foundpets'),(4,'core','lostpets'),(7,'core','pets'),(5,'core','petsbreed'),(6,'core','shelters'),(13,'sessions','session');
+/*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_migrations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+LOCK TABLES `django_migrations` WRITE;
+/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2021-05-02 19:31:22.063210'),(2,'auth','0001_initial','2021-05-02 19:31:22.219167'),(3,'admin','0001_initial','2021-05-02 19:31:22.578534'),(4,'admin','0002_logentry_remove_auto_add','2021-05-02 19:31:22.672251'),(5,'admin','0003_logentry_add_action_flag_choices','2021-05-02 19:31:22.687895'),(6,'contenttypes','0002_remove_content_type_name','2021-05-02 19:31:22.750375'),(7,'auth','0002_alter_permission_name_max_length','2021-05-02 19:31:22.797247'),(8,'auth','0003_alter_user_email_max_length','2021-05-02 19:31:22.844168'),(9,'auth','0004_alter_user_username_opts','2021-05-02 19:31:22.859779'),(10,'auth','0005_alter_user_last_login_null','2021-05-02 19:31:22.906666'),(11,'auth','0006_require_contenttypes_0002','2021-05-02 19:31:22.906666'),(12,'auth','0007_alter_validators_add_error_messages','2021-05-02 19:31:22.906666'),(13,'auth','0008_alter_user_username_max_length','2021-05-02 19:31:22.969157'),(14,'auth','0009_alter_user_last_name_max_length','2021-05-02 19:31:23.016044'),(15,'auth','0010_alter_group_name_max_length','2021-05-02 19:31:23.062908'),(16,'auth','0011_update_proxy_permissions','2021-05-02 19:31:23.062908'),(17,'auth','0012_alter_user_first_name_max_length','2021-05-02 19:31:23.110061'),(18,'core','0001_initial','2021-05-02 19:31:23.359794'),(19,'sessions','0001_initial','2021-05-02 19:31:23.515997'),(20,'core','0002_auto_20210502_2243','2021-05-02 19:43:43.282360'),(21,'core','0003_auto_20210503_0030','2021-05-02 21:30:47.142318'),(22,'core','0004_pets_pet_wool_color_extra','2021-05-09 14:28:00.108480'),(23,'core','0005_auto_20210509_1750','2021-05-09 14:50:12.561271'),(24,'core','0006_auto_20210510_1443','2021-05-10 11:43:58.299191'),(25,'core','0007_auto_20210512_1503','2021-05-12 12:03:13.457439'),(26,'core','0008_auto_20210512_1506','2021-05-12 12:06:32.177871'),(27,'core','0009_auto_20210512_1507','2021-05-12 12:07:47.642743'),(28,'core','0010_auto_20210512_1508','2021-05-12 12:08:17.550639'),(29,'core','0011_auto_20210512_1518','2021-05-12 12:18:30.580871'),(30,'core','0012_foundpets_found_pet_name','2021-05-12 12:19:38.825819'),(31,'core','0013_auto_20210512_1525','2021-05-12 12:25:47.622680'),(32,'core','0014_auto_20210512_1542','2021-05-12 12:42:51.408771'),(33,'core','0015_foundpets_found_pet_breed','2021-05-12 12:55:03.946202'),(34,'core','0016_auto_20210512_1556','2021-05-12 12:56:15.972411'),(35,'core','0017_auto_20210512_1559','2021-05-12 12:59:29.933219'),(36,'core','0018_auto_20210512_1609','2021-05-12 13:10:02.037513'),(37,'core','0019_auto_20210513_1537','2021-05-13 12:37:18.732243'),(38,'core','0020_auto_20210513_2255','2021-05-13 19:55:24.969959'),(39,'core','0021_auto_20210513_2300','2021-05-13 20:00:56.085539'),(40,'core','0022_auto_20210514_1606','2021-05-14 13:06:44.549545'),(41,'core','0023_auto_20210514_1610','2021-05-14 13:10:22.666787'),(42,'core','0024_auto_20210514_1818','2021-05-14 15:18:52.435898'),(43,'core','0025_auto_20210514_1820','2021-05-14 15:20:32.590930'),(44,'core','0026_auto_20210515_0005','2021-05-14 21:05:15.602160'),(45,'core','0027_lostpets_user_id','2021-05-14 21:40:21.514414'),(46,'core','0028_auto_20210515_1658','2021-05-15 13:58:53.330133'),(47,'core','0029_auto_20210515_1712','2021-05-15 14:12:28.920368'),(48,'core','0030_auto_20210515_1739','2021-05-15 14:39:41.661727');
+/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_expire_date_a5c62663` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_session`
+--
+
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('0nj5486liauys1pkug7t86ircce13jwi','.eJxVjM0OwiAQhN-FsyHslh_16L3PQGBZpGogKe3J-O62SQ86x_m-mbfwYV2KXzvPfkriKkCcfrsY6Ml1B-kR6r1JanWZpyh3RR60y7Elft0O9--ghF62tUPU5IiVZmcRBzZaZaW3nEFlvFhwDOSsImUDxwwxgTGYNeFgLRjx-QKyUzac:1lezLv:NoZPtrML7TsywRhS4mxuOcgEuSz-ui4pipkDdWZ2zog','2021-05-21 12:13:07.005197'),('3jw5hns48tspccvovryo6poi26v4rfw0','.eJxVjM0OwiAQhN-FsyHslh_16L3PQGBZpGogKe3J-O62SQ86x_m-mbfwYV2KXzvPfkriKkCcfrsY6Ml1B-kR6r1JanWZpyh3RR60y7Elft0O9--ghF62tUPU5IiVZmcRBzZaZaW3nEFlvFhwDOSsImUDxwwxgTGYNeFgLRjx-QKyUzac:1lgRFL:EltSuSVzmPTY8OUPbW-ylOTQOtkWdF2lU3Uz8vm3BRo','2021-05-25 12:12:19.007686'),('ejviez6ta1g2bixi37tmm81nu2skxyut','.eJxVjM0OwiAQhN-FsyHslh_16L3PQGBZpGogKe3J-O62SQ86x_m-mbfwYV2KXzvPfkriKkCcfrsY6Ml1B-kR6r1JanWZpyh3RR60y7Elft0O9--ghF62tUPU5IiVZmcRBzZaZaW3nEFlvFhwDOSsImUDxwwxgTGYNeFgLRjx-QKyUzac:1lhveK:MEzRyvhb0rhFNJ237jroI76gFi2Dt1ps7N6_lFBWQ9g','2021-05-29 14:52:16.692767'),('rifsxchf8okkcz8zgxnc9rnyirg4c3p2','.eJxVjM0OwiAQhN-FsyHslh_16L3PQGBZpGogKe3J-O62SQ86x_m-mbfwYV2KXzvPfkriKkCcfrsY6Ml1B-kR6r1JanWZpyh3RR60y7Elft0O9--ghF62tUPU5IiVZmcRBzZaZaW3nEFlvFhwDOSsImUDxwwxgTGYNeFgLRjx-QKyUzac:1ldZL5:CPHyp5ExmObK4ewXa3za5M39le2D5qeQrN3nGpoD3jg','2021-05-17 14:14:23.974831');
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event`
+--
+
+DROP TABLE IF EXISTS `event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `event` (
+  `idevent` int(11) NOT NULL AUTO_INCREMENT,
+  `event_title` varchar(45) NOT NULL,
+  `event_datetime` datetime(6) NOT NULL,
+  `event_location` varchar(80) NOT NULL,
+  `event_person_count` varchar(45) NOT NULL,
+  `event_director_full_name` varchar(45) NOT NULL,
+  `event_director_phone` varchar(45) NOT NULL,
+  `event_director_email` varchar(45) NOT NULL,
+  `event_description` longtext NOT NULL,
+  PRIMARY KEY (`idevent`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event`
+--
+
+LOCK TABLES `event` WRITE;
+/*!40000 ALTER TABLE `event` DISABLE KEYS */;
+/*!40000 ALTER TABLE `event` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `found_pet`
+--
+
+DROP TABLE IF EXISTS `found_pet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `found_pet` (
+  `idfound_pet` int(11) NOT NULL AUTO_INCREMENT,
+  `found_pet_color` varchar(45) NOT NULL,
+  `found_pet_age` varchar(25) NOT NULL,
+  `found_pet_gender` varchar(10) NOT NULL,
+  `found_pet_health` varchar(70) NOT NULL,
+  `found_pet_found_datetime` datetime(6) NOT NULL,
+  `found_pet_found_location` varchar(100) NOT NULL,
+  `found_pet_description` longtext NOT NULL,
+  `found_contact_email` varchar(45) NOT NULL,
+  `found_contact_name` varchar(45) NOT NULL,
+  `found_contact_phone` varchar(20) NOT NULL,
+  `found_pet_size` varchar(15) NOT NULL,
+  `found_pet_name` varchar(45) NOT NULL,
+  `found_pet_status` varchar(15) NOT NULL,
+  `found_petImagePath` varchar(100) NOT NULL,
+  `found_pet_breed` varchar(60) NOT NULL,
+  `user_id_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idfound_pet`),
+  KEY `found_pet_user_id_id_36dcd1f1_fk_auth_user_id` (`user_id_id`),
+  CONSTRAINT `found_pet_user_id_id_36dcd1f1_fk_auth_user_id` FOREIGN KEY (`user_id_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `found_pet`
+--
+
+LOCK TABLES `found_pet` WRITE;
+/*!40000 ALTER TABLE `found_pet` DISABLE KEYS */;
+INSERT INTO `found_pet` VALUES (1,'Палевый','4 года','Мужской','-не уточнено-','2021-05-12 15:20:33.000000','Москва','09.08.2019 нашли собаку около 1 часа ночи по адресу метро Коммунарка, улица Ясная, 5. Лабрадор. На вид около 2-3 лет, зубы хорошие, на шее видны замятины от ошейника. Собака спокойная, ни разу не лаял','yuliaan_dr@mail.ru','Юлия','+7-963-926-63-31','Крупный','Бигги','Найдено','Found_Pets_images/1-Бигги/Бигги-t_biggi_0_5d4e77a9d5089.jpg','Лабрадор',2),(2,'Рыжий','3 года','Мужской','-не уточнено-','2021-05-12 15:56:23.000000','Электросталь, М.о.','Метис алабая, чуть больше года, привит, обработан от паразитов.\r\nМалыш пристраивается в Москву и МО, частный дом (возможно проживание в утеплённом вольере), по договору ответствен','Ksuxamadgirl@mail.ru','Наталья','+7-985-448-59-45','Крупный','Норд','Найдено','Found_Pets_images/2-Норд/Норд-nord_0_5c52c9aaaa3da.jpg','Алабай',NULL),(3,'Коричневый','1 год','Мужской','-не уточнено-','2021-05-12 15:59:43.000000','Москва','Найден кобель хаски в Донском сквере (метро Ленинский проспект, Шаболовская). Подросток, на вид 6-7 месяцев, весит 18 кг, чип и клеймо не найдены. Чистый, знает команды \"сидеть\" и \"дай лапу\".','fox11september@rambler.ru','Олеся','+7-916-248-86-90','Крупный','Подросток хаски','Найдено','Found_Pets_images/3-Подросток хаски/Подросток_хаски-podrostok-khaski_0_5f4ad71640d43.jpg','Хаски',2),(4,'Белый','6 месяцев','Женский','-не уточнено-','2021-05-12 16:01:40.000000','Ростов-на-Дону','Ростов-на-Дону\r\nЗЖМ. Отдадим в хорошие руки. Сучка, щенок. В еде не прихотлива, очень дружелюбная. Вырастет, думаю, чуть меньше овчарки. Отдаём, т.к. завезли пару недель назад в наш СНТ, привязалась к нам. Если на улице оставить - ее отравят, это практикуется(( она белоснежная, уже знает пару команд. По всем вопросам пишите, звоните, очень хочется найти ей хороший дом.','rande8@ya.ru','Елена','+7-961-423-11-89','Средний','Букля','Найдено','Found_Pets_images/4-Букля/Букля-buklya_0_6079d7afcf054.jpeg','Беспородная',1),(5,'Черный','7 лет','Мужской','-не уточнено-','2021-05-12 16:03:39.000000','Москва','','marrycloser@gmail.com','Мария','+7-909-903-52-85','Средний','Неизвестно','Найдено','Found_Pets_images/5-Неизвестно/Неизвестно-neizvestno_0_5e8288de05da6.jpg','Беспородная',2),(6,'Белый','2 года','Женский','-не уточнено-','2021-05-12 16:05:05.000000','Москва','Готова привезти собаку к вам, в пределах Москвы. Татьяна, 89145498503 (смс, звонки, вотсап- предпочтительней). Хозяин, найдись!','tatianabrindas@gmail.com','Татьяна','+7-914-549-85-03','Средний','Малышка','Найдено','Found_Pets_images/6-Малышка/Малышка-malyshka_0_5b98eb1bbac40.jpeg','Беспородная',1),(7,'Палевый','7 месяцев','Женский','-не уточнено-','2021-05-13 17:54:16.000000','Мытищи','Девочка, метис лайки! Около 4х месяцев. Очень ласковая, веселая! Ходит на поводке. С кошками и собаками дружит. Была явно домашней. Потеряли, либо выбросили около деревни Терпигорьево. Ищем мам, пап для этой девчули!','natakirsanova@mail.ru','Наталья','+7-926-197-93-29','Средний','Медея','Найдено','Found_Pets_images/7-Медея/Медея-medeya_0_600e99002bb8c.jpg','Лайка',1);
+/*!40000 ALTER TABLE `found_pet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lost_pet`
+--
+
+DROP TABLE IF EXISTS `lost_pet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lost_pet` (
+  `idlost_pet` int(11) NOT NULL AUTO_INCREMENT,
+  `lost_pet_name` varchar(45) NOT NULL,
+  `lost_pet_gender` varchar(10) NOT NULL,
+  `lost_pet_age` varchar(25) NOT NULL,
+  `lost_pet_color` varchar(45) NOT NULL,
+  `lost_pet_size` varchar(15) NOT NULL,
+  `lost_pet_breed` varchar(60) NOT NULL,
+  `lost_pet_description` longtext NOT NULL,
+  `lost_pet_lost_datetime` datetime(6) NOT NULL,
+  `lost_pet_lost_location` varchar(80) NOT NULL,
+  `lost_contact_email` varchar(45) NOT NULL,
+  `lost_contact_name` varchar(45) NOT NULL,
+  `lost_contact_phone` varchar(20) NOT NULL,
+  `lost_pet_status` varchar(15) NOT NULL,
+  `lost_petImagePath` varchar(100) NOT NULL,
+  `user_id_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idlost_pet`),
+  KEY `lost_pet_user_id_id_d9d7ed74_fk_auth_user_id` (`user_id_id`),
+  CONSTRAINT `lost_pet_user_id_id_d9d7ed74_fk_auth_user_id` FOREIGN KEY (`user_id_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lost_pet`
+--
+
+LOCK TABLES `lost_pet` WRITE;
+/*!40000 ALTER TABLE `lost_pet` DISABLE KEYS */;
+INSERT INTO `lost_pet` VALUES (1,'Проша','Мужской','2 года','Черный','Средний','Французский бульдог','Французский бульдог убежал 2.02.2020 с территории дачи в неизвестном направлении','2021-05-14 21:48:10.000000','Волоколамск , Московская область','greben.lyuba@yahoo.com','Светлана','+7-910-495-61-94','Пропало','Lost_Pets_images/1-Проша/Проша-prosha_0_5e38a9beb9961.jpeg',NULL),(2,'Лёля','Женский','7 лет','Белый','Средний','Бигль','16 июня 2017 в районе д.Красные Орлы – п. Крюково Чеховского района Московской области пропала собака. Кличка ЛЁЛЯ. Сука. Метис русской пегой гончей. 4 года. В холке до колена.\r\nОкрас ярко выраженный трёхцветный, как у бигля или русской гончей : белая грудь, лапы, чёрная спина, рыжие пятна. Экстерьер дворняги. Ушки топориком, хвост баранкой.\r\nНа собаке были 2 ошейника: рыжий со светоотражающей полосой и красный от клещей.\r\nСобака добрая и контактная. Видевшие собаку дети сказали, что её посадили в тёмную машину и увезли против её воли.\r\nПожалуйста, если Вы её видели или что-нибудь слышали о ней, сообщите по телефону\r\n8 909 964-7440\r\nНАШЕДШЕМУ ВОЗНАГРАЖДЕНИЕ 10 тыс.руб..','2021-05-14 21:51:47.000000','Чехов , Московская область','tallys@ya.ru','Наталья','+7-909-964-74-40','Пропало','Lost_Pets_images/2-Лёля/Лёля-ljolya_0_5dfd46f6d8397.jpg',NULL),(3,'Коба','Мужской','16 лет','Рыжий','Небольшой','Шпиц','Крым! Севастополь. Мыс Фиолент, садоводство Эврика. Пропал шпиц, 16 лет. Рыжий. Нет одного зубика спереди, глуховат, хромает слегка, кашлель сердечный. Зовут Коба. На нем только антиблошинный. Телефон для связи +79602554850 Ольга. Вознаграждение гарантировано. Собака живет на таблетках, поэтому если найдёте, свяжитесь сразу','2021-05-14 21:53:33.000000','Севастополь','olgajazz@mail.ru','Ольга','+7-960-255-48-50','Пропало','Lost_Pets_images/3-Коба/Коба-koba_0_5f1f9e34d1bcd.jpg',NULL),(4,'Персик','Женский','1 год','Белый','Крошечный','Ретривер','Нижний Новгород, Сормово. 25 декабря убежал щенок золотистого ретривера , 4 мес, девочка, окрас белый, красный ошейник и красный поводок, на животе клеймо. Будем благодарны ща любую информацию!!! Вознаграждение гарантируем!','2021-05-14 21:55:41.000000','Нижний Новгород , Нижегородская область','tatianaleb@rambler.ru','Татьяна','+7-993-846-72-00','Пропало','Lost_Pets_images/4-Персик/Персик-persik_0_5e091c768d373.jpeg',NULL),(5,'Грейс','Женский','4 года','Белый','Крошечный','Далматин','24.10 пропала собака, м. Ясенево, девочка, кличка Грейс, возраст, примерно, 3 года. Испугалась другую собаку и вывернулась из ошейника. Окрас белого цвета с небольшими черными пятнами, пугливая, к чужим не пойдёт. Если увидете, прошу звонить по телефону 89164746558 Татьяна, 89264929975 Наталья','2021-05-14 21:57:10.000000','Москва','Natalia.Potapova88@yandex.ru','Наталья','+7-926-492-99-75','Пропало','Lost_Pets_images/5-Грейс/Грейс-grejs_0_5db2fb89e4757.jpg',2),(6,'Вильям','Мужской','5 лет','Белый','Небольшой','Джек Рассел Терьер','9 ноября в Карачевском районе города Брянска потерялась собака породы джек рассел терьер, окрас белый с рыжей мордой, уши стоят не по породе, есть клеймо, нашедшему гарантируем вознагражление.','2021-05-14 22:07:35.000000','Брянск , Брянская область','slaviktoriya@yandex.ru','Виктория','+7-903-869-44-51','Пропало','Lost_Pets_images/6-Вильям/Вильям-vilyam_0_5de8fb5add432.jpg',1);
+/*!40000 ALTER TABLE `lost_pet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pet`
+--
+
+DROP TABLE IF EXISTS `pet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pet` (
+  `idpet` int(11) NOT NULL AUTO_INCREMENT,
+  `pet_name` varchar(100) NOT NULL,
+  `pet_status` varchar(15) NOT NULL,
+  `pet_gender` varchar(10) NOT NULL,
+  `pet_age` varchar(20) NOT NULL,
+  `pet_vaccination` varchar(10) NOT NULL,
+  `pet_sterilization` varchar(10) NOT NULL,
+  `pet_toilet` varchar(25) NOT NULL,
+  `pet_size` varchar(15) NOT NULL,
+  `pet_type` varchar(100) NOT NULL,
+  `pet_breed` varchar(60) NOT NULL,
+  `pet_wool_length` varchar(10) NOT NULL,
+  `pet_wool_color` varchar(50) NOT NULL,
+  `pet_weight` varchar(25) NOT NULL,
+  `pet_health` varchar(100) NOT NULL,
+  `pet_privicies` longtext NOT NULL,
+  `pet_temperament` varchar(30) NOT NULL,
+  `pet_human_centred` varchar(30) NOT NULL,
+  `pet_attitude_children` varchar(30) NOT NULL,
+  `pet_attitude_cat` varchar(30) NOT NULL,
+  `pet_attitude_other_pets` varchar(30) NOT NULL,
+  `pet_keeping` varchar(50) NOT NULL,
+  `pet_live_in_apartment` varchar(20) NOT NULL,
+  `pet_accustomed_to_a_leash` varchar(20) NOT NULL,
+  `pet_training` varchar(20) NOT NULL,
+  `pet_location` varchar(45) NOT NULL,
+  `petImagePath` varchar(100) NOT NULL,
+  `contact_idcontact_id` int(11) NOT NULL,
+  `shelter_idshelter_id` int(11) NOT NULL,
+  `pet_wool_color_extra` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idpet`),
+  KEY `pet_contact_idcontact_id_a22aa00c_fk_contact_idcontact` (`contact_idcontact_id`),
+  KEY `pet_shelter_idshelter_id_d97bf915_fk_shelter_idshelter` (`shelter_idshelter_id`),
+  CONSTRAINT `pet_contact_idcontact_id_a22aa00c_fk_contact_idcontact` FOREIGN KEY (`contact_idcontact_id`) REFERENCES `contact` (`idcontact`),
+  CONSTRAINT `pet_shelter_idshelter_id_d97bf915_fk_shelter_idshelter` FOREIGN KEY (`shelter_idshelter_id`) REFERENCES `shelter` (`idshelter`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pet`
+--
+
+LOCK TABLES `pet` WRITE;
+/*!40000 ALTER TABLE `pet` DISABLE KEYS */;
+INSERT INTO `pet` VALUES (1,'Оливия','Ищет дом','Женский','3 года','Да','Да','-не уточнено-','Средний','Семейная','Беспородная','Короткая','Палевый','-не уточнено-','Хорошее','-не уточнено-','Спокойный','Супер-общительный','Доброжелательное','-не уточнено-','-не уточнено-','Квартира | Вольер | Загородный дом','Нет','Да','Да','Муниципальный приют','Pets_images/1-Оливия/Оливия-1.jpg',2,1,NULL),(2,'Челси','Ищет дом','Женский','8 месяцев','Да','Да','-не уточнено-','Небольшой','Охотничья','Метис','Средняя','Белый','4 кг','Хорошее','-не уточнено-','Спокойный','Общительный','Доброжелательное','Доброжелательное','Доброжелательное','Квартира | Загородный дом','Нет','Нет','Нет','Частный приют','Pets_images/2-Челси/Челси-2.jpg',3,2,'Черный'),(3,'Марта','Ищет дом','Женский','6 лет','Да','Да','-не уточнено-','Средний','Семейная','Беспородная','Короткая','Палевый','-не уточнено-','Хорошее','-не уточнено-','Спокойный','Общительный','Доброжелательное','Равнодушное','Доброжелательное','Квартира | Загородный дом','Да','Да','Нет','Муниципальный приют','Pets_images/3-Марта/Марта-3.jpeg',1,1,NULL),(4,'Тиша','Ищет дом','Мужской','9 лет','Частично','Да','-не уточнено-','Крупный','Семейная','Беспородная','Средняя','Белый','-не уточнено-','Хорошее','-не уточнено-','Спокойный','Общительный','-не уточнено-','-не уточнено-','Доброжелательное','Квартира | Загородный дом','Нет','Да','-не уточнено-','Муниципальный приют','Pets_images/4-Тиша/Тиша-4.jpeg',4,3,'Черный'),(5,'Артек','Ищет дом','Мужской','7 лет','Да','Да','-не уточнено-','Небольшой','Семейная','Беспородная','Короткая','Белый','-не уточнено-','Хорошее','-не уточнено-','Спокойный','Общительный','Доброжелательное','Равнодушное','Доброжелательное','Квартира | Загородный дом','-не уточнено-','Да','-не уточнено-','Муниципальный приют','Pets_images/5-Артек/Артек-5.jpg',5,4,'Рыжий'),(6,'Морс','Ищет дом','Мужской','4 года','Да','Да','-не уточнено-','Средний','Семейная','Беспородная','Средняя','Рыжий','25','Хорошее','-не уточнено-','Активный','Общительный','Доброжелательное','-не уточнено-','Доброжелательное','Квартира | Вольер | Загородный дом','-не уточнено-','-не уточнено-','-не уточнено-','Частный приют','Pets_images/6-Морс/Морс-mors_0_5b447f6158b8f.jpg',2,2,NULL),(7,'Ангелина','Ищет дом','Женский','10 месяцев','Да','Да','','Небольшой','Семейная','Лабрадор','Средняя','Белый','17','Хорошее','','Активный','Общительный','Доброжелательное','Доброжелательное','Доброжелательное','Квартира | Вольер | Загородный дом','Да','Да','Да','Передержка','Pets_images/7-Ангелина/Ангелина-angelina_0_6036273f77e51.jpg',6,2,'Палевый');
+/*!40000 ALTER TABLE `pet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pet_breed`
+--
+
+DROP TABLE IF EXISTS `pet_breed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pet_breed` (
+  `idpet_breed` int(11) NOT NULL AUTO_INCREMENT,
+  `breed` varchar(45) NOT NULL,
+  PRIMARY KEY (`idpet_breed`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pet_breed`
+--
+
+LOCK TABLES `pet_breed` WRITE;
+/*!40000 ALTER TABLE `pet_breed` DISABLE KEYS */;
+INSERT INTO `pet_breed` VALUES (1,'Беспородная'),(2,'Метис');
+/*!40000 ALTER TABLE `pet_breed` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `shelter`
+--
+
+DROP TABLE IF EXISTS `shelter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shelter` (
+  `idshelter` int(11) NOT NULL AUTO_INCREMENT,
+  `shelter_place` varchar(45) NOT NULL,
+  `shelter_name` varchar(45) NOT NULL,
+  `shelter_region` varchar(60) NOT NULL,
+  `shelter_city` varchar(60) NOT NULL,
+  PRIMARY KEY (`idshelter`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shelter`
+--
+
+LOCK TABLES `shelter` WRITE;
+/*!40000 ALTER TABLE `shelter` DISABLE KEYS */;
+INSERT INTO `shelter` VALUES (1,'Муниципальный приют','Приют Некрасовка (Москва)','Россия ','Москва'),(2,'Частный приют','-не уточнено-','Россия ','Москва'),(3,'Муниципальный приют','Приют Печатники (Москва)','Россия ','Москва'),(4,'Муниципальный приют','Приют Солнцево (Москва)','Россия ','Москва');
+/*!40000 ALTER TABLE `shelter` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-05-16  0:22:18

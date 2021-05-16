@@ -1,19 +1,19 @@
 from datetime import datetime
 
 from django.db import models
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
 from django.urls import reverse
+from phone_field import PhoneField
 
 
 # Таблица с контактами.
 class Contact(models.Model):
     idcontact = models.AutoField('Id Контакта', primary_key=True)
     contact_name = models.CharField('Имя', max_length=45)
-    contact_phone = models.CharField('Номер телефона', max_length=20)
-    contact_email = models.CharField('Email', max_length=45, blank=True, default=None)
+    # contact_phone = models.CharField('Номер телефона', max_length=12, unique=True)
+    contact_phone = PhoneField('Номер телефона', max_length=20)
+    contact_email = models.EmailField('Email контакта', max_length=150, blank=True, default=None)
     contact_two_name = models.CharField('Запасное Имя', max_length=45, blank=True, default=None)
-    contact_two_phone = models.CharField('Запасной номер телефона', max_length=20, blank=True, default=None)
+    contact_two_phone = PhoneField('Запасной номер телефона', max_length=20, blank=True, default=None)
 
     class Meta:
         verbose_name = 'Контакты'
@@ -174,8 +174,8 @@ class FoundPets(models.Model):
     found_pet_found_location = models.CharField('Город', max_length=100, default=None)
     found_pet_description = models.TextField('Дополнительное описание', default=None, blank=True)
     found_contact_name = models.CharField('Имя', max_length=45, default=None)
-    found_contact_phone = models.CharField('Номер телефона', max_length=20)
-    found_contact_email = models.CharField('Email', max_length=45, blank=True, default=None)
+    found_contact_phone = PhoneField('Номер телефона', max_length=20)
+    found_contact_email = models.EmailField('Email', max_length=45, blank=True, default=None)
     found_petImagePath = models.ImageField('Фото животного', upload_to=upload_location_f_pets, blank=True,
                                            default='none_image.jpg')
     user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
@@ -228,8 +228,8 @@ class LostPets(models.Model):
     lost_pet_lost_datetime = models.DateTimeField('Дата и время потери', default=datetime.now)
     lost_pet_lost_location = models.CharField('Место потери', max_length=80, default=None)
     lost_contact_name = models.CharField('Имя', max_length=45, default=None)
-    lost_contact_phone = models.CharField('Номер телефона', max_length=20)
-    lost_contact_email = models.CharField('Email', max_length=45, blank=True, default=None)
+    lost_contact_phone = PhoneField('Номер телефона', max_length=20)
+    lost_contact_email = models.EmailField('Email', max_length=45, blank=True, default=None)
     lost_petImagePath = models.ImageField('Фото животного', upload_to=upload_location_l_pets, blank=True,
                                           default='none_image.jpg')
     user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True)
@@ -250,8 +250,8 @@ class Events(models.Model):
     event_location = models.CharField('Место мероприятия', max_length=80, default=None)
     event_person_count = models.CharField('Число человек', max_length=45, default=None, blank=True)
     event_director_full_name = models.CharField('ФИО Организатора', max_length=45, default=None)
-    event_director_phone = models.CharField('Телефон Организатора', max_length=45, default=None)
-    event_director_email = models.CharField('Email Организатора', max_length=45, default=None, blank=True)
+    event_director_phone = PhoneField('Телефон Организатора', max_length=45, default=None)
+    event_director_email = models.EmailField('Email Организатора', max_length=45, default=None, blank=True)
     event_description = models.TextField('Дополнительное описание', max_length=400, default=None)
 
     class Meta:

@@ -71,21 +71,21 @@
             <form method="post" enctype="multipart/form-data" class="post-form"
                   action="">
                 {% csrf_token %}
-                {{ form }}
-
-                {% for field in form %}
-                    <p>
+                {% if form.errors %}
+                    {% for field in form %}
                         {% for error in field.errors %}
-                            <p style="color: red">{{ error }}</p>
+                            <div class="alert alert-danger" style="width: 470px; text-align: center; font-size: 12px;">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
                         {% endfor %}
-                    </p>
-                {% endfor %}
-                {% if form.non_field_errors %}
-                    <div style="color: red">
-                        <p>{{ form.non_field_errors }}</p>
-                    </div>
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger" style="width: 420px; text-align: center; font-size: 12px;">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
                 {% endif %}
-
+                {{ form }};
                 <div class="modal-footer">
                     <a type="button" class="btn btn-secondary" href="{% url 'account' %}">
                         Закрыть

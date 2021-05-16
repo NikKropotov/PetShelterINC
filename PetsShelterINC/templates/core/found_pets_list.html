@@ -23,7 +23,20 @@
     <script src="{% static 'js/hogan-3.0.1.js' %}"></script>
     <script src="{% static 'js/docs.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+
 </head>
 <body>
 <div class="header" id="header">
@@ -202,23 +215,35 @@
                             </a>
                         </div>
 
-                        {#                        <!-- Button trigger modal -->#}
-                        {#                        <button type="button" class="btn btn-primary div_add_btn show-form"#}
-                        {#                                data-url="{% url 'found_pet_create' %}"#}
-                        {#                                data-toggle="modal" data-target="#modal-found-pet">#}
-                        {#                            Добавить объявление#}
-                        {#                        </button>#}
-                        {#                        <!-- Modal -->#}
-                        {#                        <div class="modal fade" id="modal-found-pet" tabindex="-1"#}
-                        {#                             aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">#}
-                        {#                            <div class="modal-dialog modal-lg"#}
-                        {#                                 role="document">#}
-                        {#                                <div class="modal-content">#}
-                        {#                                    <form enctype="multipart/form-data" method="post" class="create-form"#}
-                        {#                                          data-url="{% url 'found_pet_create' %}"></form>#}
-                        {#                                </div>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
+{#                        <!-- Modal -->#}
+{#                        <div class="modal fade" id="modal-found-pet" tabindex="-1" aria-hidden="true" role="dialog">#}
+{#                            <div class="modal-dialog">#}
+{#                                <div class="modal-content">#}
+{##}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!-- Button trigger modal -->#}
+{#                        <button type="button" class="btn btn-primary div_add_btn show-form" id="show-form"#}
+{#                                name="button">#}
+{#                            Добавить объявление#}
+{#                        </button>#}
+{##}
+{#                        <script type="text/javascript">#}
+                            {#$(document).ready(function () {#}
+                            {##}
+                            {#    $("#show-form").modalForm({#}
+                            {#        formURL: "{% url 'add_found_pets_2' %}"#}
+                            {#    });});#}
+{#                            $(function () {#}
+{#                                // Create book button opens form in modal with id="create-modal"#}
+{#                                $("#show-form").modalForm({#}
+{#                                    formURL: "{% url 'add_found_pets_2' %}",#}
+{#                                    modalID: "#modal-found-pet"#}
+{#                                });#}
+{##}
+{#                            });#}
+{#                        </script>#}
                     {% else %}
                         <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
                         <a class="enter-btn" href="/accounts/login/">Вход</a>
@@ -262,6 +287,8 @@
     document.getElementById('sumbit_o').onclick = function (event) {
         document.getElementById('submit1').click();
     };
+    {#document.getElementById('show-form').onclick = function (event) {#}
+    {#    $('#modal-found-pet').modal('show')};#}
 </script>
 </body>
 

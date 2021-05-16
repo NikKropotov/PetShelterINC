@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'jquery',
     'django_cleanup.apps.CleanupConfig',
+    'dbbackup',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,17 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/'
+
+DBBACKUP_CONNECTORS = {
+    'default': {
+        'ENGINE': 'dbbackup.db.mysql.MysqlDumpConnector',
+        'USER': 'root',
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, 'backup')}
+
+PHONENUMBER_DEFAULT_REGION = 'RU'

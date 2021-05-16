@@ -45,9 +45,23 @@
     </div>
     <form method="post" class="login-form">
         {% csrf_token %}
-        <div class="main_card">
+        <div class="main_card" style="margin-top: 30px; text-align: -webkit-center;">
             {% csrf_token %}
             <p class="card_header">ВХОД</p>
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger" style="width: 470px; text-align: center; font-size: 12px;">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger" style="width: 420px; text-align: center; font-size: 12px;">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
             <div class="input_reg">
                 <input class="user_name_input" name="username" placeholder="Имя пользователя">
             </div>
@@ -56,9 +70,6 @@
             </div>
             <div class="btn">
                 <button class="submit_btn" type="submit">ВХОД</button>
-            </div>
-            <div class="forgot_pass_div">
-                <a class="forgot_pass" href="#">Забыли пароль?</a>
             </div>
         </div>
     </form>

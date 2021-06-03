@@ -1,12 +1,9 @@
-# from ajax.decorators import login_required
-from bootstrap_modal_forms.generic import BSModalCreateView
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.views.generic import ListView
 
@@ -25,7 +22,6 @@ class MyRegisterFormView(FormView):
         return super(MyRegisterFormView, self).form_valid(form)
 
     def form_invalid(self, form):
-        # if form.password1 != form.password2:
         return super(MyRegisterFormView, self).form_invalid(form)
 
 
@@ -41,6 +37,11 @@ def regist(request):
 # Главная страница.
 def index(request):
     return render(request, 'core/index.html')
+
+
+# Главная страница.
+def help_page(request):
+    return render(request, 'core/help.html')
 
 
 # Страница аккаунта.
@@ -256,27 +257,6 @@ def add_found_pet(request):
     else:
         form = AddFoundPetForm()
     return render(request, 'core/add_found_form.html', {'form': form})
-
-
-# Добавление анкеты найденных животных
-# @login_required
-# class AddFoundPet2View(BSModalCreateView):
-#     template_name = 'core/create_f_p.html'
-#     form_class = CreateFoundPetForm
-#     success_message = 'Success: Sign up succeeded. You can now Log in.'
-#     success_url = reverse_lazy('found_pets_list')
-
-# def add_found_pet_2(request):
-#     if request.method == "POST":
-#         form = AddFoundPetForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             new_f = form.save(commit=False)
-#             new_f.user_id = request.user
-#             new_f.save()
-#             return redirect('found_pets_list')
-#     else:
-#         form = AddFoundPetForm()
-#     return render(request, 'core/found_pets_list.html', {'form': form})
 
 
 # Фильтры

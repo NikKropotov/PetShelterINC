@@ -51,13 +51,13 @@
                     <a class="nav-link" href="/">Главная</a>
                     <a class="nav-link" href="/pets">Животные</a>
                     <a class="nav-link" href="/map">Карта</a>
-                    <a class="nav-link" href="#">Помощь</a>
+                    <a class="nav-link" href="/help_page">Помощь</a>
                     {% if user.is_authenticated %}
                         {% if user.is_superuser %}
                             <div class="poster">
                                 <a class="enter-btn" href="/account">Аккаунт</a>
                                 <div class="descr">
-                                    <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
+                                    <a class="nav-link" href="https://www.google.com/maps/d/u/0/edit?hl=ru&mid=12eFMXmOIPMOcLaATcWC-tI5McpA51I56&ll=59.86001500537692%2C30.47367781686479&z=10">Редактор карт</a>
                                     <a class="nav-link" href="/admin">Админинистрационная панель</a>
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                                                     {% endfor %}
                                                 </ul>
                                             </div>
-                                            <div class="col">
+                                            <div class="col" style="height: 200px; overflow-y: scroll;">
                                                 <ul style="list-style: none;padding: 0; margin-bottom: 0; justify-content: space-around;">
                                                     <h6>Дата</h6>
                                                     {% for dates in view.get_found_pets_date %}
@@ -215,35 +215,35 @@
                             </a>
                         </div>
 
-{#                        <!-- Modal -->#}
-{#                        <div class="modal fade" id="modal-found-pet" tabindex="-1" aria-hidden="true" role="dialog">#}
-{#                            <div class="modal-dialog">#}
-{#                                <div class="modal-content">#}
-{##}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <!-- Button trigger modal -->#}
-{#                        <button type="button" class="btn btn-primary div_add_btn show-form" id="show-form"#}
-{#                                name="button">#}
-{#                            Добавить объявление#}
-{#                        </button>#}
-{##}
-{#                        <script type="text/javascript">#}
-                            {#$(document).ready(function () {#}
-                            {##}
-                            {#    $("#show-form").modalForm({#}
-                            {#        formURL: "{% url 'add_found_pets_2' %}"#}
-                            {#    });});#}
-{#                            $(function () {#}
-{#                                // Create book button opens form in modal with id="create-modal"#}
-{#                                $("#show-form").modalForm({#}
-{#                                    formURL: "{% url 'add_found_pets_2' %}",#}
-{#                                    modalID: "#modal-found-pet"#}
-{#                                });#}
-{##}
-{#                            });#}
-{#                        </script>#}
+                        {#                        <!-- Modal -->#}
+                        {#                        <div class="modal fade" id="modal-found-pet" tabindex="-1" aria-hidden="true" role="dialog">#}
+                        {#                            <div class="modal-dialog">#}
+                        {#                                <div class="modal-content">#}
+                        {##}
+                        {#                                </div>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        {#                        <!-- Button trigger modal -->#}
+                        {#                        <button type="button" class="btn btn-primary div_add_btn show-form" id="show-form"#}
+                        {#                                name="button">#}
+                        {#                            Добавить объявление#}
+                        {#                        </button>#}
+                        {##}
+                        {#                        <script type="text/javascript">#}
+                        {#$(document).ready(function () {#}
+                        {##}
+                        {#    $("#show-form").modalForm({#}
+                        {#        formURL: "{% url 'add_found_pets_2' %}"#}
+                        {#    });});#}
+                        {#                            $(function () {#}
+                        {#                                // Create book button opens form in modal with id="create-modal"#}
+                        {#                                $("#show-form").modalForm({#}
+                        {#                                    formURL: "{% url 'add_found_pets_2' %}",#}
+                        {#                                    modalID: "#modal-found-pet"#}
+                        {#                                });#}
+                        {##}
+                        {#                            });#}
+                        {#                        </script>#}
                     {% else %}
                         <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
                         <a class="enter-btn" href="/accounts/login/">Вход</a>

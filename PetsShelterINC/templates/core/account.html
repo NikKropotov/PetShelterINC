@@ -9,7 +9,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/pets_style.css' %}">
-
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -18,21 +17,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
           rel="stylesheet">
-    <style>
-        .table_header {
-            width: 100%;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-sizing: border-box;
-            backdrop-filter: blur(10px);
-            border-radius: 5px;
-            margin-bottom: 20px;
-            justify-content: space-around;
-            color: whitesmoke;
-        }
-
-    </style>
 </head>
 
 <body>
@@ -49,7 +33,7 @@
                     <a class="nav-link" href="/pets">Животные</a>
                     <a class="nav-link" href="/map">Карта</a>
                     <a class="nav-link " href="/found_pets">Объявления</a>
-                    <a class="nav-link" href="#">Помощь</a>
+                    <a class="nav-link" href="/help_page">Помощь</a>
                     <a class="enter-btn" href="{% url 'logout_url' %}">Выход</a>
                 </div>
             </form>

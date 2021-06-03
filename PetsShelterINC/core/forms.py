@@ -1,4 +1,3 @@
-from bootstrap_modal_forms.forms import BSModalModelForm, BSModalForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -21,17 +20,21 @@ class AddFoundPetForm(forms.ModelForm):
             'found_pet_age', 'found_pet_health', 'found_pet_description', 'found_pet_found_location',
             'found_contact_name', 'found_contact_phone', 'found_contact_email', 'found_petImagePath'
         )
-
-
-# class CreateFoundPetForm(BSModalModelForm):
-#     class Meta:
-#         model = FoundPets
-#         exclude = ["found_pet_found_datetime", "user_id"]
-#         fields = (
-#             'found_pet_name', 'found_pet_breed', 'found_pet_color', 'found_pet_gender', 'found_pet_size',
-#             'found_pet_age', 'found_pet_health', 'found_pet_description', 'found_pet_found_location',
-#             'found_contact_name', 'found_contact_phone', 'found_contact_email', 'found_petImagePath'
-#         )
+        widgets = {
+            'found_pet_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'found_pet_status': forms.Select(attrs={'class': 'form-control'}),
+            'found_pet_breed': forms.TextInput(attrs={'class': 'form-control'}),
+            'found_pet_color': forms.TextInput(attrs={'class': 'form-control'}),
+            'found_pet_gender': forms.Select(attrs={'class': 'form-control'}),
+            'found_pet_size': forms.Select(attrs={'class': 'form-control'}),
+            'found_pet_age': forms.TextInput(attrs={'class': 'form-control'}),
+            'found_pet_health': forms.TextInput(attrs={'class': 'form-control'}),
+            'found_pet_description': forms.Textarea(attrs={'class': 'form-control'}),
+            'found_pet_found_location': forms.TextInput(attrs={'class': 'form-control'}),
+            'found_contact_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'found_contact_phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'found_contact_email': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 
 class EditFoundPetForm(forms.ModelForm):
@@ -87,6 +90,20 @@ class AddLostPetForm(forms.ModelForm):
             'lost_pet_name', 'lost_pet_breed', 'lost_pet_size', 'lost_pet_gender', 'lost_pet_age', 'lost_pet_color',
             'lost_pet_description', 'lost_pet_lost_location', 'lost_contact_name',
             'lost_contact_phone', 'lost_contact_email', 'lost_petImagePath')
+        widgets = {
+            'lost_pet_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'lost_pet_status': forms.Select(attrs={'class': 'form-control'}),
+            'lost_pet_breed': forms.TextInput(attrs={'class': 'form-control'}),
+            'lost_pet_color': forms.TextInput(attrs={'class': 'form-control'}),
+            'lost_pet_gender': forms.Select(attrs={'class': 'form-control'}),
+            'lost_pet_size': forms.Select(attrs={'class': 'form-control'}),
+            'lost_pet_age': forms.TextInput(attrs={'class': 'form-control'}),
+            'lost_pet_description': forms.Textarea(attrs={'class': 'form-control'}),
+            'lost_pet_lost_location': forms.TextInput(attrs={'class': 'form-control'}),
+            'lost_contact_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'lost_contact_phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'lost_contact_email': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 
 class EditLostPetForm(forms.ModelForm):

@@ -9,11 +9,10 @@ from phone_field import PhoneField
 class Contact(models.Model):
     idcontact = models.AutoField('Id Контакта', primary_key=True)
     contact_name = models.CharField('Имя', max_length=45)
-    # contact_phone = models.CharField('Номер телефона', max_length=12, unique=True)
     contact_phone = PhoneField('Номер телефона', max_length=20)
-    contact_email = models.EmailField('Email контакта', max_length=150, blank=True, default=None)
-    contact_two_name = models.CharField('Запасное Имя', max_length=45, blank=True, default=None)
-    contact_two_phone = PhoneField('Запасной номер телефона', max_length=20, blank=True, default=None)
+    contact_email = models.EmailField('Email контакта', max_length=150, blank=True, default="-не уточнено-")
+    contact_two_name = models.CharField('Запасное Имя', max_length=45, blank=True, default="-не уточнено-")
+    contact_two_phone = PhoneField('Запасной номер телефона', max_length=20, blank=True, default="-не уточнено-")
 
     class Meta:
         verbose_name = 'Контакты'
@@ -30,8 +29,9 @@ class Shelters(models.Model):
         ('Муниципальный приют', 'Муниципальный приют'),
         ('Частный приют', 'Частный приют'),
     )
-    shelter_place = models.CharField('Тип приюта', max_length=45, choices=Places, blank=True, default=None)
-    shelter_name = models.CharField('Название приюта', max_length=45, blank=True, default=None)
+    shelter_place = models.CharField('Тип приюта', max_length=45, choices=Places, blank=True,
+                                     default="Муниципальный приют")
+    shelter_name = models.CharField('Название приюта', max_length=45, blank=True, default="-не уточнено-")
     shelter_region = models.CharField('Регион', max_length=60, blank=True, default=None)
     shelter_city = models.CharField('Город', max_length=60)
 
@@ -73,7 +73,7 @@ class Pets(models.Model):
         ('Ищет дом', 'Ищет дом'),
         ('Нашел дом', 'Нашел дом'),
     )
-    pet_status = models.CharField('Статус животного', max_length=15, choices=Status)
+    pet_status = models.CharField('Статус животного', max_length=15, choices=Status, default="Ищет дом")
     Gender = (
         ('Мужской', 'Мужской'),
         ('Женский', 'Женский'),
@@ -90,9 +90,9 @@ class Pets(models.Model):
         ('Да', 'Да'),
         ('Частично', 'Частично'),
         ('Нет', 'Нет'),
+        ('-не уточнено-', '-не уточнено-'),
     )
-    pet_sterilization = models.CharField('Стерилизация', max_length=10, choices=Ste)
-    pet_toilet = models.CharField('Приучен к туалету', max_length=25, blank=True, default=None)
+    pet_sterilization = models.CharField('Стерилизация', max_length=15, choices=Ste, default='-не уточнено-')
     Size = (
         ('Крошечный', 'Крошечный'),
         ('Небольшой', 'Небольшой'),
@@ -100,7 +100,12 @@ class Pets(models.Model):
         ('Крупный', 'Крупный'),
     )
     pet_size = models.CharField('Размер', max_length=15, choices=Size)
-    pet_type = models.CharField('Тип', max_length=100)
+    Types = (
+        ('Семейная', 'Семейная'),
+        ('Охотничья', 'Охотничья'),
+        ('Охраник', 'Охраник'),
+    )
+    pet_type = models.CharField('Тип', max_length=100, choices=Types)
     pet_breed = models.CharField('Порода', max_length=60)
     wool_length = (
         ('Короткая', 'Короткая'),
@@ -113,17 +118,42 @@ class Pets(models.Model):
                                             null=True)
     pet_weight = models.CharField('Вес', max_length=25)
     pet_health = models.CharField('Здоровье', max_length=100)
-    pet_privicies = models.TextField('Особенности', max_length=150, blank=True, default=None)
-    pet_temperament = models.CharField('Темперамент', max_length=30)
-    pet_human_centred = models.CharField('Ориентированность на людей', max_length=30, blank=True, default=None)
-    pet_attitude_children = models.CharField('Ориентированность на детей', max_length=30, blank=True, default=None)
-    pet_attitude_cat = models.CharField('Ориентированность на котов', max_length=30, blank=True)
+    pet_privicies = models.TextField('Особенности', max_length=500, blank=True, default=None)
+    Temps = (
+        ('Спокойный', 'Спокойный'),
+        ('Активный', 'Активный'),
+        ('Лежебока', 'Лежебока'),
+    )
+    pet_temperament = models.CharField('Темперамент', max_length=30, choices=Temps)
+    H_cent = (
+        ('Суперобщительный', 'Суперобщительный'),
+        ('Общительный', 'Общительный'),
+        ('Сдержанный', 'Сдержанный'),
+    )
+    pet_human_centred = models.CharField('Ориентированность на людей', max_length=30, blank=True, default=None,
+                                         choices=H_cent)
+    Attr = (
+        ('Доброжелательное', 'Доброжелательное'),
+        ('Равнодушное', 'Равнодушное'),
+        ('Агрессивное', 'Агрессивное'),
+    )
+    pet_attitude_children = models.CharField('Ориентированность на детей', max_length=30, blank=True, default=None,
+                                             choices=Attr)
+    pet_attitude_cat = models.CharField('Ориентированность на котов', max_length=30, blank=True, default=None,
+                                        choices=Attr)
     pet_attitude_other_pets = models.CharField('Ориентированность на других собак', max_length=30, blank=True,
-                                               default=None)
+                                               default=None, choices=Attr)
     pet_keeping = models.CharField('Содержание', max_length=50, blank=True, default=None)
-    pet_live_in_apartment = models.CharField('Приучен к жизни в квартире', max_length=20, blank=True, default=None)
-    pet_accustomed_to_a_leash = models.CharField('Приучен к поводку', max_length=20, blank=True, default=None)
-    pet_training = models.CharField('Приучен к дрессировкам', max_length=20, blank=True, default=None)
+    Attr2 = (
+        ('Да', 'Да'),
+        ('Нет', 'Нет'),
+        ('Неважно', 'Неважно'),
+    )
+    pet_live_in_apartment = models.CharField('Приучен к жизни в квартире', max_length=20, blank=True, default=None,
+                                             choices=Attr2)
+    pet_accustomed_to_a_leash = models.CharField('Приучен к поводку', max_length=20, blank=True, default=None,
+                                                 choices=Attr2)
+    pet_training = models.CharField('Приучен к дрессировкам', max_length=20, blank=True, default=None, choices=Attr2)
     pet_location = models.CharField('Место нахождения', max_length=45)
     contact_idcontact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     shelter_idshelter = models.ForeignKey(Shelters, on_delete=models.CASCADE)
@@ -161,14 +191,14 @@ class FoundPets(models.Model):
         ('Мужской', 'Мужской'),
         ('Женский', 'Женский'),
     )
-    found_pet_gender = models.CharField('Пол', max_length=10, default=None, blank=True, choices=Gender)
+    found_pet_gender = models.CharField('Пол', max_length=10, default=None, choices=Gender)
     Size = (
         ('Крошечный', 'Крошечный'),
         ('Небольшой', 'Небольшой'),
         ('Средний', 'Средний'),
         ('Крупный', 'Крупный'),
     )
-    found_pet_size = models.CharField('Размер', max_length=15, choices=Size)
+    found_pet_size = models.CharField('Размер', max_length=15, default=None, choices=Size)
     found_pet_health = models.CharField('Состояние здоровья', max_length=70, default=None, blank=True)
     found_pet_found_datetime = models.DateTimeField('Дата и время нахождения', default=datetime.now)
     found_pet_found_location = models.CharField('Город', max_length=100, default=None)

@@ -339,7 +339,7 @@ a.card-link:hover {
 }
 
 @media only screen and (min-width: 1025px) {
-    .pagination__item.active:hover
+    .pagination__item.active:hover,
     .pagination__link {
         color: #fff;
         background: #6658af
@@ -561,12 +561,14 @@ a.card-link:hover {
 .add_button:hover {
     transition: 0.5s;
     filter: drop-shadow(0px 4px 16px #FF5B79);
+    color: white;
 }
 
-.add_button, .add_button:active, .add_button:focus {
+.add_button, .add_button:hover, .add_button:focus {
     outline: none;
     border: none;
     text-decoration: none;
+    color: white;
 }
 
 .poster {

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>PetShelter INC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Roboto:wght@400;500&display=swap"
+          rel="stylesheet">
+    <style>
+        /* Style the tab */
+        .tab {
+            float: left;
+            margin-right: 15px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            width: fit-content;
+            height: max-content;
+        }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            display: block;
+            background-color: inherit;
+            color: black;
+            padding: 22px 16px;
+            width: 100%;
+            border: none;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current "tab button" class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            background: white;
+            float: left;
+            padding: 0px 12px;
+            border: 1px solid #ccc;
+            width: 70%;
+            border-left: none;
+            height: fit-content;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="logo_container">
+                <img class="logo_img" src="{% static 'assets/img/skull_logo.png' %}" alt="logo">
+                <a class="navbar-brand">NIK_RAYN INC</a>
+            </div>
+            <form class="d-flex">
+                <div class="nav" style="align-items: center; text-align: center">
+                    <a class="nav-link" href="/">Главная</a>
+                    <a class="nav-link" href="/pets">Животные</a>
+                    <a class="nav-link" href="/map">Карта</a>
+                    <a class="nav-link " href="/found_pets">Объявления</a>
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <div class="poster">
+                                <a class="enter-btn" href="/account">Аккаунт</a>
+                                <div class="descr">
+                                    <a class="nav-link" href="https://www.google.com/maps/d/u/0/edit?hl=ru&mid=12eFMXmOIPMOcLaATcWC-tI5McpA51I56&ll=59.86001500537692%2C30.47367781686479&z=10">Редактор карт</a>
+                                    <a class="nav-link" href="/admin">Админинистрационная панель</a>
+                                </div>
+                            </div>
+
+                        {% else %}
+                            <a class="enter-btn" href="/account">Аккаунт</a>
+                        {% endif %}
+                    {% else %}
+                        <a class="reg-btn" href="{% url 'signup_url' %}">Регистрация</a>
+                        <a class="enter-btn" href="/accounts/login/">Вход</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="main_container" style="padding: 10px 31px">
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'London')">Вырешили завести собаку. Как выбрать?</button>
+        <button class="tablinks" onclick="openCity(event, 'Paris')">Разработчик</button>
+        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Вопросы</button>
+    </div>
+
+    <div id="London" class="tabcontent">
+        <h3>Вы решили завести собаку. Как выбрать?</h3>
+        <p>Решение завести собаку не приходит спонтанно. Наверное, вы уже обдумали все радости и трудности, с которыми
+            столкнетесь, взяв к себе питомца. Воспитание собаки — сложное и ответственное занятие. Она обладает
+            чувствами, характером, поэтому рассматривать появление питомца «на время», «на пробу» категорически нельзя.
+
+            Один из ключевых моментов — наличие свободного времени, так как собака требует и ухода, и нагрузки. Также
+            важным является осознание материальных затрат: еда, игрушки, амуниция. Они незначительны, но все-таки
+            следует реально подойти к оценке своих возможностей.</p>
+        <h4>
+            Основные критерии при выборе
+        </h4>
+        <ul>
+            <li>Ваше здоровье. В это понятие можно вложить ваш возраст, вашу физическую подготовку, готовность к
+                нагрузкам (например, бег с собакой), а также отсутствие аллергии на животных.
+                Ваши жилищные условия. От условий, в которых вы будете жить с собакой, зависит и размер будущего
+                питомца, и его характер. Для квартиры подходят более мелкие породы, для домов с придомовой территорией
+                можно позволить себе крупного питомца.
+            </li>
+            <li>Состав семьи. Наличие маленьких детей или очень пожилых людей в квартире или доме требует особого
+                подхода к вопросу выбора собаки. Очевидно, что крупные собаки, содержащиеся в доме, могут представлять
+                опасность при ненадлежащем воспитании (даже будучи неагрессивной, есть риск при активной игре толкнуть
+                ребенка, испугать его). Но даже большую роль, чем размер питомца, здесь сыграет его психическая
+                уравновешенность, стабильность поведения.
+            </li>
+            <li>
+                Ваш характер — тот фактор, о котором часто забывают при приобретении домашнего любимца. Так же как и
+                люди, собаки обладают разными темпераментами, и в идеале надо выбирать себе четвероногого друга более
+                спокойного по темпераменту, чем вы. Так гиперактивность питомца будет в тягость меланхоличному домоседу,
+                а хозяину-холерику будет скучно уговаривать побегать мохнатого флегматика.
+            </li>
+        </ul>
+        <img src="https://podberi-sobaku.ru/images/article/kak-vibrat/kakuyu-vibrat-foto2.jpg" style="width: 100%">
+        <h3>На что стоит обратить внимание</h3>
+        <p>Если вы вполне осознаете ответственность за своего питомца и готовы взять себе верного друга до конца его
+            жизни, то понимаете, что ему необходимы и здоровое питание, и физические нагрузки, и уход, и ласка, и
+            воспитание.
+
+            При приобретении первой собаки рекомендуем обратиться к специальным тренерам, которые помогут вам с выбором
+            и зададут основы правильных взаимоотношений с новым другом.</p>
+        <ul>
+            <li>Пол. Заранее стоит определиться с половой принадлежностью собаки. Если вы не планируете заниматься
+                разведением породы, и, следовательно, участвовать в выставках, специалисты рекомендуют кастрировать или
+                стерилизовать питомцев еще в раннем возрасте.
+            </li>
+            <li>Порода. Выбирая собак по породе следует ознакомиться с характерными особенностями и, главное, с
+                характерными болезнями, узнать про анализы и тесты родителей щенка. По этой характеристике беспородные
+                собаки имеют преимущество, так как природа отбирает лучшие генетические показатели от родителей, не
+                закрепляя наследственные заболевания, метисы изначально имеют более крепкий иммунитет.
+            </li>
+            <li>
+                Возраст. в приютах часто содержатся взрослые собаки, мы рекомендуем познакомиться с ними ближе. В чем
+                преимущества такого выбора? Во-первых, вам не надо будет предсказывать характер. У взрослых собак все
+                предельно понятно при знакомстве: их отношение к людям, страхи, восприятие детей, взаимодействие с
+                другими собаками, окончательный размер. Во-вторых, вы пропустите не самый приятный в бытовом плане
+                щенячий период: не будет смены зубов, которая влечет за собой изгрызенную мебель и вещи, не будет
+                проблем с подбором корма, приучением к справлению нужд на улице.
+            </li>
+        </ul>
+        <img src="https://podberi-sobaku.ru/images/article/kak-vibrat/kakuyu-vibrat-foto3.jpg" style="width: 100%;">
+        <p>Прежде чем заводить себе собаку, определитесь с целями, которые вы ставите, ознакомьтесь со специальной
+            литературой по воспитанию и содержанию питомцев, лично встретьтесь с будущим другом. Обратите особое
+            внимание на собак, содержащихся в приютах: такие собаки раздаются бесплатно, но взамен вы получите
+            безграничную любовь и преданное товарищество.</p>
+    </div>
+
+    <div id="Paris" class="tabcontent" style="display: none">
+        <h3>Разработчик</h3>
+        <p>Кропотов Никита</p>
+        <p>GitHub <a href="https://github.com/NikKropotov">https://github.com/NikKropotov</a></p>
+    </div>
+
+    <div id="Tokyo" class="tabcontent" style="display: none">
+        <h3>Вопросы</h3>
+        <p>При появлении у вас вопрос и предложений почта для связи <a href="mailto:nikitakropotov7@gmail.com">nikitakropotov7@gmail.com</a>
+        </p>
+    </div>
+</div>
+<script>
+    function openCity(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+</body>
+
+</html>

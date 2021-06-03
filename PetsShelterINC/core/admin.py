@@ -5,9 +5,9 @@ from .models import *
 # Вход в админку nikita 12345
 # Вход в админку nikita277 Jd9ogl0H
 
-
 @admin.register(Pets)
 class AdminPets(admin.ModelAdmin):
+    exclude = ('pet_toilet',)
     list_display = ('pet_name', 'pet_status', 'pet_gender', 'pet_age')
     list_editable = ('pet_status', 'pet_age')
     list_filter = ('pet_status', 'pet_gender')

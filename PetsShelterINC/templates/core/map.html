@@ -58,13 +58,13 @@
                     <a class="nav-link" href="/">Главная</a>
                     <a class="nav-link" href="/pets">Животные</a>
                     <a class="nav-link " href="/found_pets">Объявления</a>
-                    <a class="nav-link" href="#">Помощь</a>
+                    <a class="nav-link" href="/help_page">Помощь</a>
                     {% if user.is_authenticated %}
                        {% if user.is_superuser %}
                             <div class="poster">
                                 <a class="enter-btn" href="/account">Аккаунт</a>
                                 <div class="descr">
-                                    <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
+                                    <a class="nav-link" href="https://www.google.com/maps/d/u/0/edit?hl=ru&mid=12eFMXmOIPMOcLaATcWC-tI5McpA51I56&ll=59.86001500537692%2C30.47367781686479&z=10">Редактор карт</a>
                                     <a class="nav-link" href="/admin">Админинистрационная панель</a>
                                 </div>
                             </div>

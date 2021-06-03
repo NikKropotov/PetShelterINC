@@ -58,32 +58,32 @@
             alert("Email скопирован " + fullLink.value);
         }
     </script>
-    <style>
-        .phone_btn:hover span {
-            display: none
-        }
-
-        .phone_btn:hover:after {
-            content: "{{pet_detail.contact_idcontact.contact_name}}  {{ pet_detail.contact_idcontact.contact_phone }}";
-        }
-
-        .phone_btn:active, .phone_btn:focus {
-            text-overflow: clip;
-            outline: none;
-        }
-
-        .email_btn:hover span {
-            display: none
-        }
-
-        .email_btn:hover:after {
-            content: "{{pet_detail.contact_idcontact.contact_name}}  {{ pet_detail.contact_idcontact.contact_email }}";
-        }
-
-        .email_btn:active, .email_btn:focus {
-            outline: none;
-        }
-    </style>
+    {#    <style>#}
+    {#        .phone_btn:hover span {#}
+    {#            display: none#}
+    {#        }#}
+    {##}
+    {#        .phone_btn:hover:after {#}
+    {#            content: "{{pet_detail.contact_idcontact.contact_name}}  {{ pet_detail.contact_idcontact.contact_phone }}";#}
+    {#        }#}
+    {##}
+    {#        .phone_btn:active, .phone_btn:focus {#}
+    {#            text-overflow: clip;#}
+    {#            outline: none;#}
+    {#        }#}
+    {##}
+    {#        .email_btn:hover span {#}
+    {#            display: none#}
+    {#        }#}
+    {##}
+    {#        .email_btn:hover:after {#}
+    {#            content: "{{pet_detail.contact_idcontact.contact_name}}  {{ pet_detail.contact_idcontact.contact_email }}";#}
+    {#        }#}
+    {##}
+    {#        .email_btn:active, .email_btn:focus {#}
+    {#            outline: none;#}
+    {#        }#}
+    {#    </style>#}
 </head>
 
 <body>
@@ -100,12 +100,12 @@
                     <a class="nav-link" href="/pets">Животные</a>
                     <a class="nav-link" href="/map">Карта</a>
                     <a class="nav-link " href="/found_pets">Объявления</a>
-                    <a class="nav-link" href="#">Помощь</a>
+                    <a class="nav-link" href="/help_page">Помощь</a>
                     {% if user.is_superuser %}
                         <div class="poster">
                             <a class="enter-btn" href="/account">Аккаунт</a>
                             <div class="descr">
-                                <a class="nav-link" href="https://yandex.ru/map-constructor">Редактор карт</a>
+                                <a class="nav-link" href="https://www.google.com/maps/d/u/0/edit?hl=ru&mid=12eFMXmOIPMOcLaATcWC-tI5McpA51I56&ll=59.86001500537692%2C30.47367781686479&z=10">Редактор карт</a>
                                 <a class="nav-link" href="/admin">Админинистрационная панель</a>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
         <div class="row">
             <div class="col">
                 <h6 class="pet_name_header">{{ pet_detail.pet_name }}</h6>
-                <img src="{{ MEDIA_URL }}{{ pet_detail.petImagePath.url }}"
+                <img src="{{ MEDIA_URL }}{{ pet_detail.petImagePath }}"
                      alt="{{ pet_detail.pet_name }}" style="border-radius: 35px; width: 430px; height: 430px;">
             </div>
             <div class="col">
@@ -333,25 +333,107 @@
             </div>
         </div>
         <div class="more_info_card" style="text-align: start; padding: 40px;">
-            <div class="row" style="justify-content: space-around;">
-                <button class="phone_btn" id="phone_btn" onclick="PhoneCopy()"
-                        value="{{ pet_detail.contact_idcontact.contact_phone }}">
-                    <img src="{% static 'assets/icons/phone.svg' %}"
-                         style="vertical-align: text-top;" alt="phone">
-                    ПОЗВОНИТЬ
-                </button>
-                <input id="phone_o" value="{{ pet_detail.contact_idcontact.contact_phone }}"
-                       type="hidden">
-                <button class="email_btn" onclick="EmailCopy()" id="email_btn"
-                        style="overflow: hidden; text-overflow: clip"
-                        value="{{ pet_detail.contact_idcontact.contact_email }}">
-                    <img src="{% static 'assets/icons/mail.svg' %}"
-                         style="vertical-align: text-top;" alt="email">
-                    НАПИСАТЬ
-                </button>
-                <input id="email_o" value="{{ pet_detail.contact_idcontact.contact_email }}"
-                       type="hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-8 col-sm-6">
+                                    <div class="col info_header">Имя</div>
+                                </div>
+                                <div class="col-4 col-sm-6">
+                                    <div class="col">{{ pet_detail.contact_idcontact.contact_name }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-8 col-sm-6">
+                                    <div class="col info_header">Телефон</div>
+                                </div>
+                                <div class="col-4 col-sm-6">
+                                    <div class="col">{{ pet_detail.contact_idcontact.contact_phone }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-8 col-sm-6">
+                                    <div class="col info_header">Почта</div>
+                                </div>
+                                <div class="col-4 col-sm-6">
+                                    <div class="col">{{ pet_detail.contact_idcontact.contact_email }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3"
+                         style="    text-align: center; display: flex; justify-content: space-between;">
+                        <button class="phone_btn" id="phone_btn" onclick="PhoneCopy()"
+                                value="{{ pet_detail.contact_idcontact.contact_phone }}">
+                            <img src="{% static 'assets/icons/phone.svg' %}"
+                                 style="vertical-align: text-top;" alt="phone">
+                        </button>
+                        <input id="phone_o" value="{{ pet_detail.contact_idcontact.contact_phone }}"
+                               type="hidden">
+                        <button class="email_btn" onclick="EmailCopy()" id="email_btn"
+                                style="overflow: hidden; text-overflow: clip"
+                                value="{{ pet_detail.contact_idcontact.contact_email }}">
+                            <img src="{% static 'assets/icons/mail.svg' %}"
+                                 style="vertical-align: text-top;" alt="email">
+                        </button>
+                        <input id="email_o" value="{{ pet_detail.contact_idcontact.contact_email }}"
+                               type="hidden">
+                    </div>
+                </div>
             </div>
+            {#            <div class="row">#}
+            {#                <div class="col">#}
+            {#                    <div class="row" style="align-items: stretch;">#}
+            {#                        <div class="col">#}
+            {#                            <div class="col info_header">Имя</div>#}
+            {#                        </div>#}
+            {#                        <div class="col">#}
+            {#                            <div class="col">{{ pet_detail.contact_idcontact.contact_name }}</div>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                    <div class="row" style="align-items: stretch;">#}
+            {#                        <div class="col">#}
+            {#                            <div class="col info_header">Телефон</div>#}
+            {#                        </div>#}
+            {#                        <div class="col">#}
+            {#                            <div class="col">{{ pet_detail.contact_idcontact.contact_phone }}</div>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                    <div class="row" style="align-items: stretch;">#}
+            {#                        <div class="col">#}
+            {#                            <div class="col info_header">Почта</div>#}
+            {#                        </div>#}
+            {#                        <div class="col">#}
+            {#                            <div class="col">{{ pet_detail.contact_idcontact.contact_email }}</div>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#                <div class="col" style="display: flex; justify-content: space-evenly;">#}
+            {#                    <button class="phone_btn" id="phone_btn" onclick="PhoneCopy()"#}
+            {#                            value="{{ pet_detail.contact_idcontact.contact_phone }}">#}
+            {#                        <img src="{% static 'assets/icons/phone.svg' %}"#}
+            {#                             style="vertical-align: text-top;" alt="phone">#}
+            {#                    </button>#}
+            {#                    <input id="phone_o" value="{{ pet_detail.contact_idcontact.contact_phone }}"#}
+            {#                           type="hidden">#}
+            {#                    <button class="email_btn" onclick="EmailCopy()" id="email_btn"#}
+            {#                            style="overflow: hidden; text-overflow: clip"#}
+            {#                            value="{{ pet_detail.contact_idcontact.contact_email }}">#}
+            {#                        <img src="{% static 'assets/icons/mail.svg' %}"#}
+            {#                             style="vertical-align: text-top;" alt="email">#}
+            {#                    </button>#}
+            {#                    <input id="email_o" value="{{ pet_detail.contact_idcontact.contact_email }}"#}
+            {#                           type="hidden">#}
+            {#                </div>#}
+            {#            </div>#}
+
+
         </div>
     </div>
 </div>
